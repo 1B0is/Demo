@@ -114,6 +114,9 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Artifacts",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "preferences.lookFeel",
     "to.speed.mode.migration.done": "true"
   }
@@ -135,7 +138,7 @@
       <updated>1789969903266</updated>
       <workItem from="1789969904269" duration="322000" />
       <workItem from="1790007579092" duration="625000" />
-      <workItem from="1790008667667" duration="672000" />
+      <workItem from="1790008667667" duration="1049000" />
     </task>
     <servers />
   </component>
