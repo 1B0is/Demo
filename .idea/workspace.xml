@@ -29,23 +29,23 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0082583685527424" />
-      <entry key="MS500" value="1.4360765720746036" />
-      <entry key="S2" value="2.266394505016198" />
-      <entry key="S5" value="2.653881377979099" />
-      <entry key="S10" value="2.816505957782671" />
-      <entry key="S30" value="2.936338204893836" />
-      <entry key="S60" value="2.969727066763234" />
-      <entry key="M2" value="3.0452112174472044" />
-      <entry key="M5" value="3.4898846081842176" />
-      <entry key="M10" value="3.993116601629402" />
-      <entry key="M15" value="4.25469910142114" />
-      <entry key="M30" value="4.584391155880878" />
-      <entry key="H1" value="4.780174049948823" />
-      <entry key="H2" value="4.88690465098003" />
-      <entry key="H4" value="4.942633467685433" />
-      <entry key="D1" value="4.990323150991117" />
-      <entry key="W1" value="4.9986147311997104" />
+      <entry key="MS100" value="1.0274772491021287" />
+      <entry key="MS500" value="1.9707390914727947" />
+      <entry key="S2" value="3.5710536002908473" />
+      <entry key="S5" value="4.31674257833297" />
+      <entry key="S10" value="4.635495665215937" />
+      <entry key="S30" value="4.872933003364734" />
+      <entry key="S60" value="4.937603731552596" />
+      <entry key="M2" value="5.028787928525731" />
+      <entry key="M5" value="5.48253212629739" />
+      <entry key="M10" value="5.989000099931106" />
+      <entry key="M15" value="6.2518023256783675" />
+      <entry key="M30" value="6.582846726159246" />
+      <entry key="H1" value="6.779373322478845" />
+      <entry key="H2" value="6.886496515872771" />
+      <entry key="H4" value="6.94242737128933" />
+      <entry key="D1" value="6.990288512233503" />
+      <entry key="W1" value="6.998609775618763" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
@@ -67,23 +67,23 @@
       <entry key="W1" value="0.0" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.9605599519301723" />
-      <entry key="MS500" value="1.4227345975609615" />
-      <entry key="S2" value="2.261174919274533" />
-      <entry key="S5" value="2.6514331196192433" />
-      <entry key="S10" value="2.8152057507482713" />
-      <entry key="S30" value="2.935886062940569" />
-      <entry key="S60" value="2.969493782176657" />
-      <entry key="M2" value="3.04501878707093" />
-      <entry key="M5" value="3.4895874628802535" />
-      <entry key="M10" value="3.9928415061719598" />
-      <entry key="M15" value="4.254471754506636" />
-      <entry key="M30" value="4.584249760487928" />
-      <entry key="H1" value="4.780095116478988" />
-      <entry key="H2" value="4.886862938821906" />
-      <entry key="H4" value="4.942612025318384" />
-      <entry key="D1" value="4.990319493638452" />
-      <entry key="W1" value="4.998614206643617" />
+      <entry key="MS100" value="0.35197179786093125" />
+      <entry key="MS500" value="1.657291056926539" />
+      <entry key="S2" value="3.4580542066914943" />
+      <entry key="S5" value="4.267317181603698" />
+      <entry key="S10" value="4.6099941965606295" />
+      <entry key="S30" value="4.864248186566843" />
+      <entry key="S60" value="4.933232976157026" />
+      <entry key="M2" value="5.026521749143507" />
+      <entry key="M5" value="5.481404499921593" />
+      <entry key="M10" value="5.988309550483112" />
+      <entry key="M15" value="6.251297938495745" />
+      <entry key="M30" value="6.582566764047174" />
+      <entry key="H1" value="6.779225091168402" />
+      <entry key="H2" value="6.886420150738325" />
+      <entry key="H4" value="6.94238860135977" />
+      <entry key="D1" value="6.99028196679912" />
+      <entry key="W1" value="6.9986088384757075" />
     </decayedShown>
   </component>
   <component name="ProjectColorInfo">{
@@ -95,32 +95,32 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.MCP Project settings loaded": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "codeWithMe.voiceChat.enabledByDefault": "false",
-    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "main",
-    "junie.onboarding.icon.badge.shown": "true",
-    "kotlin-language-version-configured": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Artifacts",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
-    "to.speed.mode.migration.done": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
