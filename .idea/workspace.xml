@@ -4,37 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2b8ccb5a-5411-4ea0-8604-5f876ed1390f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/MainApp.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/controller/DropZoneController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/controller/MainController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/controller/PreviewController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/exception/CorruptedImageException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/exception/InvalidZipException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/exception/TracerNotFoundException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/model/AppSettings.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/model/DetailLevel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/model/ImageItem.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/model/ImageSession.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/service/ColorDetector.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/service/FileTaskHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/service/ImageTracerEngine.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/service/SvgRenderer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/service/VectorEngine.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/service/ZipProcessor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/view/ZoomableImagePane.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/work_space/src/main/resources/se233/work_space/view/DropZoneView.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/work_space/src/main/resources/se233/work_space/view/MainLayout.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/work_space/src/main/resources/se233/work_space/view/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/work_space/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/work_space/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/work_space/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/work_space/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/HelloApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/HelloController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/Launcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/Launcher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/test" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/work_space/src/main/resources/se233/work_space/hello-view.fxml" beforeDir="false" />
-    </list>
+    <list default="true" id="2b8ccb5a-5411-4ea0-8604-5f876ed1390f" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -191,7 +161,7 @@
       <workItem from="1790010347163" duration="8000" />
       <workItem from="1790010452862" duration="241000" />
       <workItem from="1790177066043" duration="46000" />
-      <workItem from="1791047481598" duration="2600000" />
+      <workItem from="1791047481598" duration="2672000" />
     </task>
     <servers />
   </component>
