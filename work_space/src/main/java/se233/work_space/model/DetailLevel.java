@@ -1,4 +1,6 @@
 package se233.work_space.model;
 
-public class DetailLevel {
-}
+
+    //กรองไฟล์ + imageItem/session
+public enum DetailLevel {LOW, MEDIUM, HIGH}
+
