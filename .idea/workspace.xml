@@ -5,15 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2b8ccb5a-5411-4ea0-8604-5f876ed1390f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/lib/ImageTracer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/model/ColorMode.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/work_space/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/work_space/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/controller/DropZoneController.java" beforeDir="false" afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/controller/DropZoneController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/model/AppSettings.java" beforeDir="false" afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/model/AppSettings.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/model/DetailLevel.java" beforeDir="false" afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/model/DetailLevel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/model/ImageItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/model/ImageItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/model/ImageSession.java" beforeDir="false" afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/model/ImageSession.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -210,7 +202,7 @@
       <workItem from="1791272754821" duration="17000" />
       <workItem from="1791272843982" duration="2015000" />
       <workItem from="1791274892633" duration="208000" />
-      <workItem from="1791480054533" duration="6498000" />
+      <workItem from="1791480054533" duration="7282000" />
     </task>
     <servers />
   </component>
