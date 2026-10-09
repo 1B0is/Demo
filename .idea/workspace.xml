@@ -5,7 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2b8ccb5a-5411-4ea0-8604-5f876ed1390f" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/service/TracerDemo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/exception/CorruptedImageException.java" beforeDir="false" afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/exception/CorruptedImageException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/service/ImageTracerEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/service/ImageTracerEngine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/service/VectorEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/service/VectorEngine.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -13,14 +17,14 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="49" />
+    <option name="cachedIndexableFilesCount" value="51" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="FxmlFile" />
-        <option value="Class" />
         <option value="Enum" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -52,61 +56,61 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="9.194941819756998E-5" />
-      <entry key="MS500" value="0.2712593108130339" />
-      <entry key="S2" value="1.3382905568037542" />
-      <entry key="S5" value="2.072779001486502" />
-      <entry key="S10" value="2.469449575661868" />
-      <entry key="S30" value="2.850352738540724" />
-      <entry key="S60" value="3.201105472131435" />
-      <entry key="M2" value="3.733794050594215" />
-      <entry key="M5" value="5.2955372204465965" />
-      <entry key="M10" value="15.01334504311025" />
-      <entry key="M15" value="33.814388787016725" />
-      <entry key="M30" value="107.87129454322964" />
-      <entry key="H1" value="225.73408645188115" />
-      <entry key="H2" value="341.665484989255" />
-      <entry key="H4" value="425.3982993929275" />
-      <entry key="D1" value="513.847865681631" />
-      <entry key="W1" value="531.0659464025422" />
+      <entry key="MS100" value="0.0" />
+      <entry key="MS500" value="1.125602944768466E-185" />
+      <entry key="S2" value="5.9346836758887015E-47" />
+      <entry key="S5" value="4.207471171558799E-19" />
+      <entry key="S10" value="1.1160658964503726E-9" />
+      <entry key="S30" value="0.0033819132354186046" />
+      <entry key="S60" value="0.19185963085478333" />
+      <entry key="M2" value="1.8701385041307685" />
+      <entry key="M5" value="10.258317950167198" />
+      <entry key="M10" value="23.507446651373943" />
+      <entry key="M15" value="38.89859794466602" />
+      <entry key="M30" value="101.38994808962619" />
+      <entry key="H1" value="217.56438650358749" />
+      <entry key="H2" value="345.30962722223546" />
+      <entry key="H4" value="443.58232454813486" />
+      <entry key="D1" value="551.7876319810293" />
+      <entry key="W1" value="573.317059441242" />
     </decayedCancelled>
     <decayedSelected>
-      <entry key="MS100" value="1.0000000000417335" />
-      <entry key="MS500" value="1.0084157383504353" />
-      <entry key="S2" value="1.3689553199499687" />
-      <entry key="S5" value="1.9576756258043653" />
-      <entry key="S10" value="2.3685172745150007" />
-      <entry key="S30" value="2.8030483181099717" />
-      <entry key="S60" value="3.1746035705265037" />
-      <entry key="M2" value="3.711183939836734" />
-      <entry key="M5" value="4.844907241783972" />
-      <entry key="M10" value="11.973079572670986" />
-      <entry key="M15" value="26.118999898949195" />
-      <entry key="M30" value="80.10282126463693" />
-      <entry key="H1" value="161.7633844809494" />
-      <entry key="H2" value="238.8585062503588" />
-      <entry key="H4" value="293.09669306290164" />
-      <entry key="D1" value="349.3250943581455" />
-      <entry key="W1" value="360.15755522526035" />
+      <entry key="MS100" value="1.0" />
+      <entry key="MS500" value="1.0" />
+      <entry key="S2" value="1.0" />
+      <entry key="S5" value="1.0" />
+      <entry key="S10" value="1.0000000093238561" />
+      <entry key="S30" value="1.0061215002720296" />
+      <entry key="S60" value="1.275490181871587" />
+      <entry key="M2" value="3.5122831168003" />
+      <entry key="M5" value="14.776735461544675" />
+      <entry key="M10" value="30.82160699685551" />
+      <entry key="M15" value="45.8387167593562" />
+      <entry key="M30" value="96.3376388840586" />
+      <entry key="H1" value="180.71891640621084" />
+      <entry key="H2" value="268.54379061355564" />
+      <entry key="H4" value="334.06645711062" />
+      <entry key="D1" value="404.7249488395295" />
+      <entry key="W1" value="418.62668642063875" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="2.2925837971776733E-4" />
-      <entry key="MS500" value="0.37035191676009" />
-      <entry key="S2" value="2.1054939483140513" />
-      <entry key="S5" value="3.64831470324143" />
-      <entry key="S10" value="4.602112460696827" />
-      <entry key="S30" value="5.55971858289741" />
-      <entry key="S60" value="6.322849093481626" />
-      <entry key="M2" value="7.414204025999871" />
-      <entry key="M5" value="10.121362832532993" />
-      <entry key="M10" value="26.952390859785098" />
-      <entry key="M15" value="59.88092672574936" />
-      <entry key="M30" value="187.89404335625312" />
-      <entry key="H1" value="387.41784625516493" />
-      <entry key="H2" value="580.4657190428301" />
-      <entry key="H4" value="718.459399261393" />
-      <entry key="D1" value="863.1659157944139" />
-      <entry key="W1" value="891.222464751002" />
+      <entry key="MS100" value="0.0029603839189656215" />
+      <entry key="MS500" value="0.31208263722540297" />
+      <entry key="S2" value="0.7474246243174691" />
+      <entry key="S5" value="0.8900757332524964" />
+      <entry key="S10" value="0.943438260557527" />
+      <entry key="S30" value="0.9900472765952418" />
+      <entry key="S60" value="1.4517205371443775" />
+      <entry key="M2" value="5.349605991096956" />
+      <entry key="M5" value="24.97464643090188" />
+      <entry key="M10" value="54.26435803616894" />
+      <entry key="M15" value="84.66906762740614" />
+      <entry key="M30" value="197.64668983084852" />
+      <entry key="H1" value="398.2028197729428" />
+      <entry key="H2" value="613.7923354896204" />
+      <entry key="H4" value="777.6104798714914" />
+      <entry key="D1" value="956.5048044788066" />
+      <entry key="W1" value="991.9425958450829" />
     </decayedShown>
   </component>
   <component name="ProjectColorInfo">{
@@ -118,35 +122,37 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Application.Launcher.executor&quot;: &quot;Run&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
-    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.jshint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.jshint&quot;: &quot;&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
-    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Application.ImageTracer.executor": "Run",
+    "Application.Launcher.executor": "Run",
+    "Application.TracerDemo.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.MCP Project settings loaded": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "main",
+    "junie.onboarding.icon.badge.shown": "true",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.jshint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.jshint": "",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "to.speed.mode.migration.done": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\ADV.prog\Adp_project_app\Demo\work_space\src\main\java\se233\work_space\lib" />
@@ -157,7 +163,20 @@
       <recent name="se233.work_space" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.TracerDemo">
+    <configuration name="ImageTracer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="se233.work_space.lib.ImageTracer" />
+      <module name="work_space" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="se233.work_space.lib.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Launcher" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="se233.work_space.Launcher" />
       <module name="work_space" />
@@ -171,8 +190,23 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="TracerDemo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="se233.work_space.service.TracerDemo" />
+      <module name="work_space" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="se233.work_space.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.TracerDemo" />
+        <item itemvalue="Application.ImageTracer" />
         <item itemvalue="Application.Launcher" />
       </list>
     </recent_temporary>
@@ -203,6 +237,7 @@
       <workItem from="1791272843982" duration="2015000" />
       <workItem from="1791274892633" duration="208000" />
       <workItem from="1791480054533" duration="7282000" />
+      <workItem from="1791538532509" duration="2405000" />
     </task>
     <servers />
   </component>
