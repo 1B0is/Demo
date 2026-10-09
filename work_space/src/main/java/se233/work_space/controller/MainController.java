@@ -40,7 +40,7 @@ public class MainController {
         originalCaption.setText(item.getName());
         pageLabel.setText((session.getCurrentIndex()+1) + "/" + session.size());
         backButton.setDisable(!session.hasPrevious());
-        backButton.setDisable(!session.hasNext());
+        nextButton.setDisable(!session.hasNext());
     }
 
     @FXML private void handleBack() {session.previous(); showCurrent(); }

@@ -1,12 +1,11 @@
 package se233.work_space.service;
 
+import javafx.concurrent.Task;
 import se233.work_space.exception.CorruptedImageException;
 import se233.work_space.lib.ImageTracer;
 import se233.work_space.model.AppSettings.DetailLevel;
 import se233.work_space.model.AppSettings.ColorMode;
 import se233.work_space.model.AppSettings;
-
-
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -14,12 +13,29 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 
-// implementation จริงของ VectorEngine (ใช้ ImageTracer แบบ pure Java)
 public class VectorEngine {
 
-    // ใช้แทนความหมาย "Unlimited" (ประมาณค่า ปรับทีหลังใน Step I)
+    // ใช้แทนความหมาย "Unlimited"
     private static final int UNLIMITED_COLORS = 64;
 
+    /**
+     * เมธอดสำหรับสร้าง Background Task เพื่อนำไปรันใน Thread แยก (ไม่ทำให้ UI ค้าง)
+     * Controller จะเรียกใช้เมธอดนี้เพื่อรับ Task กลับไปจัดการต่อ
+     */
+    public Task<String> createTraceTask(File image, AppSettings settings) {
+        return new Task<>() {
+            @Override
+            protected String call() throws Exception {
+                // เรียกใช้เมธอด trace ปกติ แต่การทำงานจะถูกโยนไปอยู่เบื้องหลัง
+                return trace(image, settings);
+            }
+        };
+    }
+
+    /**
+     * ลอจิกการแปลงภาพหลัก (Synchronous)
+     * การทำงานส่วนนี้กินพลัง CPU และใช้เวลานาน จึงต้องถูกห่อใน Task เสมอเมื่อใช้กับ UI
+     */
     public String trace(File image, AppSettings settings) throws CorruptedImageException {
         // 1) ตรวจว่าไฟล์มีอยู่จริง
         if (image == null || !image.isFile()) {
@@ -45,12 +61,15 @@ public class VectorEngine {
             }
             return svg;
         } catch (CorruptedImageException e) {
-            throw e;
+            throw e; // โยน Exception เดิมกลับไปให้ Task ฝั่ง Controller รับรู้
         } catch (Exception e) {
             throw new CorruptedImageException("Failed to trace " + image.getName(), e);
         }
     }
 
+    /**
+     * แปลง AppSettings เป็น Options แบบ Hashmap สำหรับ ImageTracer
+     */
     private HashMap<String, Float> buildOptions(AppSettings s) {
         HashMap<String, Float> o = new HashMap<>();
 

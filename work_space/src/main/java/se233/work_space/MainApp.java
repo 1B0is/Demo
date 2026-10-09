@@ -1,6 +1,5 @@
 package se233.work_space;
 
-import com.sun.tools.javac.Main;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -24,6 +23,8 @@ public class MainApp extends Application {
         stage.setTitle("Vector Converter");
         stage.setMinWidth(900);
         stage.setMinHeight(600);
+        showDropZone();
+        stage.show();
     }
 
     private void showDropZone() throws IOException {
@@ -31,7 +32,7 @@ public class MainApp extends Application {
                 MainApp.class.getResource("/se233/work_space/view/DropZoneView.fxml"));
         Parent root = loader.load();
         DropZoneController controller = loader.getController();
-        controller.setOnImagesReady(this::showMain);
+        controller.setOnImagesReady(this::showMain);   // ดรอปเสร็จให้เรียกเมธอดนี้
         setRoot(root);
     }
 
@@ -45,7 +46,7 @@ public class MainApp extends Application {
             setRoot(root);
         } catch (IOException e) {
             e.printStackTrace();
-            new Alert(Alert.AlertType.ERROR, "Cannot open the editoer: " + e.getMessage()).show();
+            new Alert(Alert.AlertType.ERROR, "Cannot open the editor: " + e.getMessage()).show();
         }
     }
 
