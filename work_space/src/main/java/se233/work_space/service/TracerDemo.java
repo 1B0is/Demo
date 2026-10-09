@@ -1,8 +1,10 @@
 package se233.work_space.service;
 
 import se233.work_space.model.AppSettings;
-import se233.work_space.model.ColorMode;
-import se233.work_space.model.DetailLevel;
+import se233.work_space.model.AppSettings.DetailLevel;
+import se233.work_space.model.AppSettings.ColorMode;
+
+
 
 import java.io.File;
 import java.nio.file.Files;
@@ -23,7 +25,7 @@ public class TracerDemo {
         Path outDir = Path.of(System.getProperty("user.home"), "Downloads", "svg_test");
         Files.createDirectories(outDir);
 
-        VectorEngine engine = new ImageTracerEngine();
+        VectorEngine engine = new VectorEngine();
 
         // 1) เทียบ 3 ระดับ Detail (Custom 2 สี ค่าเริ่มต้น)
         for (DetailLevel level : DetailLevel.values()) {

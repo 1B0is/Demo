@@ -9,6 +9,9 @@ public class AppSettings {
     public static final int DEFAULT_COLORS = 2;
     public static final int MAX_CUSTOM_COLORS = 5;
 
+    public enum DetailLevel {LOW, MEDIUM, HIGH}
+    public enum ColorMode { UNLIMITED, CUSTOM }
+
     private DetailLevel detailLevel = DetailLevel.MEDIUM;
     private ColorMode colorMode = ColorMode.CUSTOM;
     private int colorCount = DEFAULT_COLORS;
