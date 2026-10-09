@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
+import java.util.function.Consumer;
 
 //(รับ Event การลากไฟล์ แล้วส่งต่อข้อมูลไฟล์ไปให้ Model)
 public class DropZoneController {
@@ -23,7 +24,13 @@ public class DropZoneController {
     private  static final Set<String> IMAGE_EXT = Set.of("png", "jpg", "jpeg"); //กรองนามสกุล
     private final ImageSession session = new ImageSession();
 
+    private Consumer<ImageSession> onImagesReady;
+
     @FXML private VBox dropZone;
+
+    public void setOnImagesReady(Consumer<ImageSession> callback) {
+        this.onImagesReady = callback;
+    }
 
     @FXML
     private void handleDragOver(DragEvent event) {
@@ -54,6 +61,7 @@ public class DropZoneController {
 
     //คืน true ถ้ามีไฟล์ที่ใช้งานได้อย่างน้อย 1 ไฟล์
     private boolean processDropped(List<File> files) {
+        ImageSession session = new ImageSession(); //sessionใหม่ทุกครั้งที่ดรอป
         List<File> zips = new ArrayList<>();
         List<String> rejected = new ArrayList<>();
 
@@ -74,7 +82,13 @@ public class DropZoneController {
             showWarning("Unsupported file(s) were skipped:\n" + String.join("\n", rejected)
                 +"\n\nSupported: JPG, PNG, ZIP");
         }
-        return !session.isEmpty() || !zips.isEmpty();
+        if (!zips.isEmpty() && session.isEmpty()){
+            showWarning("ZIP support is not implemented yet."); // ชั่วคราว จนกว่าจะทำ Step B
+        }
+        if (!session.isEmpty() && onImagesReady != null) {
+            Platform.runLater(() -> onImagesReady.accept(session));
+        }
+        return !session.isEmpty();
     }
     private String extensionOf(File f) {
         String name = f.getName();

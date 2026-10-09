@@ -26,3 +26,42 @@
     -fx-font-size: 14px;
     -fx-text-fill: #8a7075;
 }
+
+.top-panel {
+    -fx-background-color: #ead9dc;
+    -fx-border-color: #c9a9ae;
+    -fx-border-width: 0 0 1 0;
+}
+
+.right-panel {
+    -fx-background-color: #f0e4e6;
+    -fx-border-color: #c9a9ae;
+    -fx-border-width: 0 0 0 1;
+}
+
+.section-title {
+    -fx-font-weight: bold;
+    -fx-text-fill: #4a3236;
+}
+
+.preview-pane {
+    -fx-background-color: white;
+    -fx-border-color: #c9a9ae;
+}
+
+.preview-caption {
+    -fx-text-fill: #8a7075;
+    -fx-font-size: 12px;
+}
+
+.export-button {
+    -fx-background-color: #b5485e;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 6;
+    -fx-padding: 8 12;
+}
+
+.export-button:hover {
+    -fx-background-color: #9c3a4e;
+}

@@ -1,14 +1,88 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-<!-- # หน้าหลัก 3 ส่วน: top panel (Zoom), center (preview คู่), right panel (settings + Export All) -->
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="CONTROLLER_NAME"
-            prefHeight="400.0" prefWidth="600.0">
 
-</AnchorPane>
+<!-- # หน้าหลัก 3 ส่วน: top panel (Zoom), center (preview คู่), right panel (settings + Export All) -->
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="se233.work_space.controller.MainController"
+            styleClass="root-pane">
+
+    <!-- แผงบน: มีแค่ 3 ปุ่มตามโจทย์ -->
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="8" styleClass="top-panel">
+            <padding><Insets top="8" right="12" bottom="8" left="12"/></padding>
+            <Button fx:id="zoomInButton" text="Zoom In" onAction="#handleZoomIn"/>
+            <Button fx:id="zoomOutButton" text="Zoom Out" onAction="#handleZoomOut"/>
+            <Button fx:id="zoomFitButton" text="Zoom to Fit" onAction="#handleZoomFit"/>
+        </HBox>
+    </top>
+
+    <!-- กลาง: ต้นฉบับ / ผลลัพธ์ เคียงข้างกัน -->
+    <center>
+        <HBox spacing="12">
+            <padding><Insets top="12" right="12" bottom="12" left="12"/></padding>
+
+            <VBox HBox.hgrow="ALWAYS" prefWidth="100" minWidth="0" spacing="6">
+                <Label text="Original Image" styleClass="section-title"/>
+                <StackPane fx:id="originalPane" VBox.vgrow="ALWAYS"
+                           minWidth="0" minHeight="0" styleClass="preview-pane">
+                    <ImageView fx:id="originalView" preserveRatio="true"/>
+                </StackPane>
+                <Label fx:id="originalCaption" styleClass="preview-caption"/>
+            </VBox>
+
+            <VBox HBox.hgrow="ALWAYS" prefWidth="100" minWidth="0" spacing="6">
+                <Label text="Vectorized Result" styleClass="section-title"/>
+                <StackPane fx:id="resultPane" VBox.vgrow="ALWAYS"
+                           minWidth="0" minHeight="0" styleClass="preview-pane">
+                    <Label text="Result will appear here" styleClass="preview-caption"/>
+                </StackPane>
+                <Label fx:id="resultCaption" text=" " styleClass="preview-caption"/>
+            </VBox>
+        </HBox>
+    </center>
+
+    <!-- แผงขวา: ตั้งค่า + Export + Back/Next -->
+    <right>
+        <VBox spacing="10" prefWidth="260" minWidth="260" styleClass="right-panel">
+            <padding><Insets top="12" right="12" bottom="12" left="12"/></padding>
+
+            <Button fx:id="exportButton" text="Export All" maxWidth="Infinity"
+                    styleClass="export-button" onAction="#handleExportAll"/>
+            <Separator/>
+
+            <Label text="Detail level" styleClass="section-title"/>
+            <HBox>
+                <fx:define><ToggleGroup fx:id="detailGroup"/></fx:define>
+                <ToggleButton fx:id="detailLow" text="Low" toggleGroup="$detailGroup"/>
+                <ToggleButton fx:id="detailMedium" text="Medium" selected="true" toggleGroup="$detailGroup"/>
+                <ToggleButton fx:id="detailHigh" text="High" toggleGroup="$detailGroup"/>
+            </HBox>
+
+            <Label text="Colors" styleClass="section-title"/>
+            <HBox>
+                <fx:define><ToggleGroup fx:id="colorGroup"/></fx:define>
+                <ToggleButton fx:id="colorUnlimited" text="Unlimited" toggleGroup="$colorGroup"/>
+                <ToggleButton fx:id="colorCustom" text="Custom" selected="true" toggleGroup="$colorGroup"/>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" spacing="8">
+                <Label text="Number of colors"/>
+                <Spinner fx:id="colorSpinner" min="1" max="5" initialValue="2" prefWidth="80"/>
+            </HBox>
+
+            <CheckBox fx:id="removeBgCheck" text="Remove background"/>
+
+            <Region VBox.vgrow="ALWAYS"/>
+
+            <HBox alignment="CENTER" spacing="10">
+                <Button fx:id="backButton" text="Back" onAction="#handleBack"/>
+                <Label fx:id="pageLabel" text="1 / 1"/>
+                <Button fx:id="nextButton" text="Next" onAction="#handleNext"/>
+            </HBox>
+        </VBox>
+    </right>
+</BorderPane>

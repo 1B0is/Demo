@@ -20,5 +20,5 @@ public class ImageSession {
     public boolean hasNext() {return currentIndex < items.size() - 1;}
     public boolean hasPrevious() {return currentIndex > 0;}
     public void next() {if (hasNext()) currentIndex++;}
-    public void prevent() {if (hasPrevious()) currentIndex --;}
+    public void previous() {if (hasPrevious()) currentIndex --;}
 }
