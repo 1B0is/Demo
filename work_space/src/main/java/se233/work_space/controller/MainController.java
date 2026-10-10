@@ -1,26 +1,34 @@
 package se233.work_space.controller;
 
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.PixelFormat;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.StackPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
-import javafx.scene.image.Image;
-
-import se233.work_space.view.ZoomableImagePane;
-import se233.work_space.exception.CorruptedImageException;
-//import se233.work_space.exception.TracerNotFoundException;
-// เรียกใช้ Service ของboing
-//import se233.work_space.service.ImageTracerEngine;
-import se233.work_space.service.FileTaskHandler;
+import javafx.util.Duration;
+import se233.work_space.model.AppSettings;
+import se233.work_space.model.AppSettings.ColorMode;
+import se233.work_space.model.AppSettings.DetailLevel;
+import se233.work_space.model.ImageItem;
 import se233.work_space.model.ImageSession;
+import se233.work_space.service.VectorEngine;
+import se233.work_space.view.ZoomableImagePane;
 
+import java.awt.Dimension;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class MainController {
 
-    // UI Elements
     @FXML private StackPane originalImageContainer;
     @FXML private StackPane vectorImageContainer;
     @FXML private Label imageStatusLabel;
@@ -35,121 +43,173 @@ public class MainController {
     private ZoomableImagePane originalPane;
     private ZoomableImagePane vectorPane;
 
-    // Data Variables
-    private List<File> imageFiles;
-    private int currentIndex = 0;
+    private ImageSession session;
+    private final VectorEngine engine = new VectorEngine();
+
+    // thread เดียวสำหรับพรีวิว (daemon ไม่ขวางการปิดโปรแกรม)
+    private static final ExecutorService PREVIEW_POOL = Executors.newSingleThreadExecutor(r -> {
+        Thread t = new Thread(r, "preview-worker");
+        t.setDaemon(true);
+        return t;
+    });
+
+    private volatile long previewVersion = 0;   // ใช้ทิ้งผลของงานเก่าที่ช้ากว่า
+    private boolean syncing = false;            // true ตอนเซ็ตค่าลงปุ่ม เพื่อไม่ให้ listener ทำงาน
+    private final PauseTransition debounce = new PauseTransition(Duration.millis(250));
 
     @FXML
     public void initialize() {
-        // 1. ตั้งค่า Controls
         detailLevelCombo.getItems().addAll("Low", "Medium", "High");
         detailLevelCombo.setValue("Medium");
 
         colorToggleGroup = new ToggleGroup();
         colorUnlimitedRadio.setToggleGroup(colorToggleGroup);
         colorCustomRadio.setToggleGroup(colorToggleGroup);
-        colorCustomRadio.setSelected(true);
+        colorCustomRadio.setSelected(true);                       // ค่าเริ่มต้นตามโจทย์: Custom 2 สี
         customColorSpinner.disableProperty().bind(colorCustomRadio.selectedProperty().not());
 
-        // 2. สร้างที่ใส่รูป (ZoomableImagePane)
         originalPane = new ZoomableImagePane();
         vectorPane = new ZoomableImagePane();
         originalImageContainer.getChildren().add(originalPane);
         vectorImageContainer.getChildren().add(vectorPane);
 
-        // 3. ผูก Event เปลี่ยนค่าแล้วอัปเดตทันที
-        setupInstantPreviewListeners();
+        debounce.setOnFinished(e -> runPreview(false));
+
+        detailLevelCombo.valueProperty().addListener((o, a, b) -> onControlsChanged());
+        colorToggleGroup.selectedToggleProperty().addListener((o, a, b) -> onControlsChanged());
+        customColorSpinner.valueProperty().addListener((o, a, b) -> onControlsChanged());
+        removeBgCheckbox.selectedProperty().addListener((o, a, b) -> onControlsChanged());
     }
 
+    // ---------- รับภาพจากหน้า Drop Zone ----------
     public void setInitialFiles(List<File> files) {
-        this.imageFiles = files;
-        this.currentIndex = 0;
-        loadImage(currentIndex);
+        ImageSession s = new ImageSession();
+        for (File f : files) s.add(new ImageItem(f));
+        setSession(s);
     }
 
-    private void loadImage(int index) {
-        if (imageFiles == null || imageFiles.isEmpty()) return;
-
-        try {
-            File currentFile = imageFiles.get(index);
-            Image original = new Image(currentFile.toURI().toString());
-            originalPane.setImage(original);
-            originalPane.zoomToFit();
-            vectorPane.zoomToFit();
-
-            imageStatusLabel.setText("Image " + (index + 1) + " of " + imageFiles.size());
-            triggerPreviewUpdate();
-
-        } catch (Exception e) {
-            showError("Image Error", "Failed to load image: " + e.getMessage());
-        }
+    public void setSession(ImageSession session) {
+        this.session = session;
+        showCurrent();
     }
 
-    private void setupInstantPreviewListeners() {
-        detailLevelCombo.valueProperty().addListener((obs, oldVal, newVal) -> triggerPreviewUpdate());
-        colorToggleGroup.selectedToggleProperty().addListener((obs, oldVal, newVal) -> triggerPreviewUpdate());
-        customColorSpinner.valueProperty().addListener((obs, oldVal, newVal) -> triggerPreviewUpdate());
-        removeBgCheckbox.selectedProperty().addListener((obs, oldVal, newVal) -> triggerPreviewUpdate());
+    private void showCurrent() {
+        if (session == null || session.isEmpty()) return;
+        debounce.stop();
+        ImageItem item = session.getCurrent();
+        imageStatusLabel.setText("Image " + (session.getCurrentIndex() + 1) + " of " + session.size());
+        loadSettingsIntoControls(item.getSettings());
+        runPreview(true);
     }
 
-    private void triggerPreviewUpdate() {
-        if (imageFiles == null || imageFiles.isEmpty()) return;
-
-        File currentFile = imageFiles.get(currentIndex);
-        String detail = detailLevelCombo.getValue();
-        boolean isCustomColor = colorCustomRadio.isSelected();
-        int colors = isCustomColor ? customColorSpinner.getValue() : -1; // -1 สมมติว่าเป็น Unlimited
-        boolean removeBg = removeBgCheckbox.isSelected();
-
-        try {
-            // TODO (จุดเชื่อมต่อ): เปลี่ยนชื่อ method "generatePreview" ตามที่เพื่อนตั้งใน ImageTracerEngine
-            // ให้เพื่อนคืนค่ากลับมาเป็น JavaFX Image เพื่อโชว์ผลลัพธ์
-//            Image vectorizedImage = ImageTracerEngine.generatePreview(currentFile, detail, colors, removeBg);
-//            vectorPane.setImage(vectorizedImage);
-//
-//        } catch (TracerNotFoundException e) {
-//            showError("System Error", "Vector Tracer engine (e.g., Potrace) not found!");
-//        } catch (CorruptedImageException e) {
-//            showError("File Error", "The current image file is corrupted.");
-        } catch (Exception e) {
-            showError("Render Error", "Failed to render vector preview: " + e.getMessage());
-        }
+    // ---------- ปุ่มตั้งค่า <-> AppSettings ของภาพปัจจุบัน ----------
+    private void loadSettingsIntoControls(AppSettings s) {
+        syncing = true;
+        detailLevelCombo.setValue(toLabel(s.getDetailLevel()));
+        if (s.getColorMode() == ColorMode.CUSTOM) colorCustomRadio.setSelected(true);
+        else colorUnlimitedRadio.setSelected(true);
+        customColorSpinner.getValueFactory().setValue(s.getColorCount());
+        removeBgCheckbox.setSelected(s.isRemoveBackground());
+        syncing = false;
     }
 
+    private void onControlsChanged() {
+        if (syncing || session == null || session.isEmpty()) return;
+        AppSettings s = session.getCurrent().getSettings();
+        s.setDetailLevel(fromLabel(detailLevelCombo.getValue()));
+        s.setColorMode(colorCustomRadio.isSelected() ? ColorMode.CUSTOM : ColorMode.UNLIMITED);
+        Integer n = customColorSpinner.getValue();
+        if (n != null) s.setColorCount(n);
+        s.setRemoveBackground(removeBgCheckbox.isSelected());
+        debounce.playFromStart();            // รอ 250 ms ค่อย trace
+    }
+
+    private static String toLabel(DetailLevel d) {
+        String n = d.name();
+        return n.charAt(0) + n.substring(1).toLowerCase();
+    }
+
+    private static DetailLevel fromLabel(String label) {
+        return label == null ? DetailLevel.MEDIUM : DetailLevel.valueOf(label.toUpperCase());
+    }
+
+    private static AppSettings copyOf(AppSettings src) {
+        AppSettings c = new AppSettings();
+        c.setDetailLevel(src.getDetailLevel());
+        c.setColorMode(src.getColorMode());
+        c.setColorCount(src.getColorCount());
+        c.setRemoveBackground(src.isRemoveBackground());
+        return c;
+    }
+
+    // ---------- พรีวิว (ทำเบื้องหลัง ไม่ให้ UI ค้าง) ----------
+    private void runPreview(boolean imageChanged) {
+        if (session == null || session.isEmpty()) return;
+
+        final ImageItem item = session.getCurrent();
+        final AppSettings snapshot = copyOf(item.getSettings());   // กันค่าเปลี่ยนระหว่างรัน
+        final long myVersion = ++previewVersion;
+
+        progressBar.setVisible(true);
+        progressBar.setProgress(ProgressBar.INDETERMINATE_PROGRESS);
+
+        Task<Image> task = new Task<>() {
+            @Override
+            protected Image call() throws Exception {
+                Dimension d = VectorEngine.displaySize(item.getSource());
+
+                if (imageChanged) {   // แสดงภาพต้นฉบับก่อน ไม่ต้องรอ trace
+                    Image orig = new Image(item.getSource().toURI().toString(),
+                            d.width, d.height, false, true, false);
+                    Platform.runLater(() -> {
+                        if (myVersion == previewVersion) {
+                            originalPane.setImage(orig);
+                            originalPane.zoomToFit();
+                        }
+                    });
+                }
+                if (myVersion != previewVersion) return null;      // มีงานใหม่กว่าแล้ว
+
+                VectorEngine.TraceResult r = engine.trace(item.getSource(), snapshot, d.width, d.height);
+                item.setSvg(r.svg());
+                return toFxImage(r.preview());
+            }
+        };
+
+        task.setOnSucceeded(e -> {
+            if (myVersion != previewVersion || task.getValue() == null) return;
+            vectorPane.setImage(task.getValue());
+            if (imageChanged) vectorPane.zoomToFit();
+            progressBar.setVisible(false);
+        });
+
+        task.setOnFailed(e -> {
+            if (myVersion != previewVersion) return;
+            progressBar.setVisible(false);
+            Throwable ex = task.getException();
+            showError("Preview Error", ex == null ? "Unknown error" : ex.getMessage());
+        });
+
+        PREVIEW_POOL.submit(task);
+    }
+
+    private static Image toFxImage(BufferedImage bi) {
+        int w = bi.getWidth(), h = bi.getHeight();
+        int[] px = bi.getRGB(0, 0, w, h, null, 0, w);
+        WritableImage out = new WritableImage(w, h);
+        out.getPixelWriter().setPixels(0, 0, w, h, PixelFormat.getIntArgbInstance(), px, 0, w);
+        return out;
+    }
+
+    // ---------- Export (ทำใน M3) ----------
     @FXML
     private void handleExportAll() {
-        DirectoryChooser directoryChooser = new DirectoryChooser();
-        directoryChooser.setTitle("Select Output Folder");
+        DirectoryChooser chooser = new DirectoryChooser();
+        chooser.setTitle("Select Output Folder");
         Stage stage = (Stage) detailLevelCombo.getScene().getWindow();
-        File selectedDirectory = directoryChooser.showDialog(stage);
-
-        if (selectedDirectory != null) {
-            progressBar.setVisible(true);
-
-            String detail = detailLevelCombo.getValue();
-            boolean isCustomColor = colorCustomRadio.isSelected();
-            int colors = isCustomColor ? customColorSpinner.getValue() : -1;
-            boolean removeBg = removeBgCheckbox.isSelected();
-
-            try {
-                // TODO (จุดเชื่อมต่อ): เปลี่ยนชื่อ method "startBatchProcess" ตามที่เพื่อนตั้งใน FileTaskHandler
-                // ส่ง callback ไปอัปเดต ProgressBar ให้เพื่อนด้วย จะได้ไม่ค้าง
-//                FileTaskHandler.startBatchProcess(
-//                        imageFiles, selectedDirectory, detail, colors, removeBg,
-//                        progressValue -> progressBar.setProgress(progressValue),
-//                        () -> {
-//                            progressBar.setVisible(false);
-//                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-//                            alert.setTitle("Success");
-//                            alert.setHeaderText(null);
-//                            alert.setContentText("All images exported successfully!");
-//                            alert.showAndWait();
-//                        }
-//                );
-            } catch (Exception e) {
-                progressBar.setVisible(false);
-                showError("Export Error", "Failed to export files: " + e.getMessage());
-            }
+        File dir = chooser.showDialog(stage);
+        if (dir != null) {
+            System.out.println("Export to: " + dir + " (M3)");
         }
     }
 
@@ -161,28 +221,18 @@ public class MainController {
         alert.showAndWait();
     }
 
-    // --- ควบคุมปุ่ม Navigation และ Zoom ---
-    @FXML private void handleZoomIn() { originalPane.zoomIn(); vectorPane.zoomIn(); }
+    // ---------- Zoom / Navigation ----------
+    @FXML private void handleZoomIn()  { originalPane.zoomIn();  vectorPane.zoomIn(); }
     @FXML private void handleZoomOut() { originalPane.zoomOut(); vectorPane.zoomOut(); }
     @FXML private void handleZoomFit() { originalPane.zoomToFit(); vectorPane.zoomToFit(); }
 
     @FXML
     private void handleBack() {
-        if (currentIndex > 0) {
-            currentIndex--;
-            loadImage(currentIndex);
-        }
+        if (session != null && session.hasPrevious()) { session.previous(); showCurrent(); }
     }
 
     @FXML
     private void handleNext() {
-        if (currentIndex < imageFiles.size() - 1) {
-            currentIndex++;
-            loadImage(currentIndex);
-        }
-    }
-
-    public void setSession(ImageSession session) {
-        // ไว้ให้ boing มาจัดการดึงข้อมูลทีหลัง
+        if (session != null && session.hasNext()) { session.next(); showCurrent(); }
     }
 }

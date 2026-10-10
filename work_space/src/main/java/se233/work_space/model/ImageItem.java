@@ -19,7 +19,7 @@ public class ImageItem {
 
     public File getSource() {return this.source;}
     public String getName() {return this.source.getName();}
-    public AppSettings getSettings() {return this.getSettings();}
+    public AppSettings getSettings() {return this.settings;}
 
     public int getDetectedColor() {return this.detectedColor;}
     public void setDetectedColor(int n) {this.detectedColor = n;}

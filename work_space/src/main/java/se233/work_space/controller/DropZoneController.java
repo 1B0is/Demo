@@ -1,5 +1,6 @@
 package se233.work_space.controller;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -37,13 +38,17 @@ public class DropZoneController {
         Dragboard db = event.getDragboard();
         boolean success = false;
         if (db.hasFiles()) {
-            // ส่ง Source Node (UI เดิม) ไปด้วยเพื่อใช้ปิดหน้าต่างนี้
-            processDroppedFiles(db.getFiles(), (Node) event.getSource());
+            List<File> files = new ArrayList<>(db.getFiles());
+            Node source = (Node) event.getSource();
             success = true;
+            // ทำหลังจบ event ลากวาง กัน scene เปลี่ยนกลางคัน
+            Platform.runLater(() -> processDroppedFiles(files, source));
         }
         event.setDropCompleted(success);
         event.consume();
     }
+
+
 
     private void processDroppedFiles(List<File> files, Node sourceNode) {
         List<File> imageFiles = new ArrayList<>();
@@ -67,26 +72,22 @@ public class DropZoneController {
             // จัดการ Exception ถ้า zip พัง
         } catch (InvalidZipException e) {
             showError("Zip Extract Error", "Failed to extract ZIP: " + e.getMessage());
-        } catch (Exception e) {
-            showError("System Error", "An unexpected error occurred: " + e.getMessage());
+        } catch (Throwable t) {
+            t.printStackTrace();
+            Throwable root = t;
+            while (root.getCause() != null) root = root.getCause();
+            showError("System Error", root.toString());
         }
     }
 
-    private void goToMainLayout(List<File> imageFiles, Node sourceNode) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/se233/work_space/view/MainLayout.fxml"));
-            Parent root = loader.load();
+    private void goToMainLayout(List<File> imageFiles, Node sourceNode) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/se233/work_space/view/MainLayout.fxml"));
+        Parent root = loader.load();
 
-            // ส่งไฟล์ไปให้ MainController ก่อนเปลี่ยนหน้า
-            MainController mainController = loader.getController();
-            mainController.setInitialFiles(imageFiles);
+        MainController mainController = loader.getController();
+        mainController.setInitialFiles(imageFiles);
 
-            Stage stage = (Stage) sourceNode.getScene().getWindow();
-            sourceNode.getScene().setRoot(root);
-        } catch (IOException e) {
-            showError("UI Error", "Cannot load Main Layout.");
-            e.printStackTrace();
-        }
+        sourceNode.getScene().setRoot(root);
     }
 
     private void showError(String title, String content) {

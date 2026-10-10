@@ -8,8 +8,10 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/controller/DropZoneController.java" beforeDir="false" afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/controller/DropZoneController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/controller/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/service/ZipProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/service/ZipProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/work_space/src/main/resources/se233/work_space/view/MainLayout.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/work_space/src/main/resources/se233/work_space/view/MainLayout.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/controller/PreviewController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/model/ImageItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/model/ImageItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/service/TracerDemo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/service/VectorEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/service/VectorEngine.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,61 +30,61 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.000000000069222" />
-      <entry key="MS500" value="1.0106789377393508" />
-      <entry key="S2" value="1.7865348318790795" />
-      <entry key="S5" value="3.658819017808926" />
-      <entry key="S10" value="5.2410603669361935" />
-      <entry key="S30" value="6.900589244817871" />
-      <entry key="S60" value="7.432363431610487" />
-      <entry key="M2" value="7.831215615014015" />
-      <entry key="M5" value="8.83224134225026" />
-      <entry key="M10" value="12.068145431366245" />
-      <entry key="M15" value="16.350542105125633" />
-      <entry key="M30" value="26.604507724270917" />
-      <entry key="H1" value="36.43562498181681" />
-      <entry key="H2" value="43.32257869988015" />
-      <entry key="H4" value="47.41018288963465" />
-      <entry key="D1" value="51.19755956256401" />
-      <entry key="W1" value="51.884412101215936" />
+      <entry key="MS100" value="5.814966746458663E-31" />
+      <entry key="MS500" value="8.972416949403649E-7" />
+      <entry key="S2" value="0.03077707634048596" />
+      <entry key="S5" value="0.2484797175462212" />
+      <entry key="S10" value="0.498477399233128" />
+      <entry key="S30" value="0.7929068229169229" />
+      <entry key="S60" value="0.8942662532288498" />
+      <entry key="M2" value="1.0809630758251587" />
+      <entry key="M5" value="6.040401625344136" />
+      <entry key="M10" value="26.199025377090834" />
+      <entry key="M15" value="47.84155788466757" />
+      <entry key="M30" value="95.86829436267709" />
+      <entry key="H1" value="145.09170328208657" />
+      <entry key="H2" value="183.94704690400715" />
+      <entry key="H4" value="209.2597560623885" />
+      <entry key="D1" value="234.4371247532052" />
+      <entry key="W1" value="239.1935985468987" />
     </decayedCancelled>
     <decayedSelected>
-      <entry key="MS100" value="0.0" />
-      <entry key="MS500" value="0.0" />
-      <entry key="S2" value="5.8292906761835486E-89" />
-      <entry key="S5" value="7.644181051174056E-36" />
-      <entry key="S10" value="3.90465769687962E-18" />
-      <entry key="S30" value="2.4988941849117518E-6" />
-      <entry key="S60" value="0.002235487852587014" />
-      <entry key="M2" value="0.06692650422150627" />
-      <entry key="M5" value="0.6752166718085516" />
-      <entry key="M10" value="3.3732734102123336" />
-      <entry key="M15" value="7.092631149479404" />
-      <entry key="M30" value="16.030567360151768" />
-      <entry key="H1" value="24.566150744002208" />
-      <entry key="H2" value="30.521850635222094" />
-      <entry key="H4" value="34.047979730752104" />
-      <entry key="D1" value="37.30960926989091" />
-      <entry key="W1" value="37.90056630380538" />
+      <entry key="MS100" value="1.0" />
+      <entry key="MS500" value="1.0" />
+      <entry key="S2" value="1.0" />
+      <entry key="S5" value="1.0" />
+      <entry key="S10" value="1.0" />
+      <entry key="S30" value="1.0000000204233956" />
+      <entry key="S60" value="1.0004770289025253" />
+      <entry key="M2" value="1.102342255302397" />
+      <entry key="M5" value="5.595310731638231" />
+      <entry key="M10" value="24.103185408897886" />
+      <entry key="M15" value="44.444573002913046" />
+      <entry key="M30" value="89.82369484289812" />
+      <entry key="H1" value="135.70011048848232" />
+      <entry key="H2" value="171.33518450876002" />
+      <entry key="H4" value="194.31093258344848" />
+      <entry key="D1" value="217.0049648877643" />
+      <entry key="W1" value="221.2763183168237" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.9526379981108014" />
-      <entry key="MS500" value="1.0009428741186166" />
-      <entry key="S2" value="1.7823743320583654" />
-      <entry key="S5" value="3.65536967060303" />
-      <entry key="S10" value="5.23855859271643" />
-      <entry key="S30" value="6.899481359925183" />
-      <entry key="S60" value="7.433918422201409" />
-      <entry key="M2" value="7.897024803726295" />
-      <entry key="M5" value="9.503939498445789" />
-      <entry key="M10" value="15.430255287609473" />
-      <entry key="M15" value="23.426596991582286" />
-      <entry key="M30" value="42.61566090109576" />
-      <entry key="H1" value="60.98672926377933" />
-      <entry key="H2" value="73.83504036478247" />
-      <entry key="H4" value="81.45291547917121" />
-      <entry key="D1" value="88.5062090808523" />
-      <entry key="W1" value="89.78483909129652" />
+      <entry key="MS100" value="0.0017724983502288296" />
+      <entry key="MS500" value="0.2816549949633239" />
+      <entry key="S2" value="0.7493179135910683" />
+      <entry key="S5" value="1.0935011086882753" />
+      <entry key="S10" value="1.3995991209457426" />
+      <entry key="S30" value="1.7516120939477362" />
+      <entry key="S60" value="1.8726148408211136" />
+      <entry key="M2" value="2.1695642745389243" />
+      <entry key="M5" value="11.601390660234422" />
+      <entry key="M10" value="50.23120845070927" />
+      <entry key="M15" value="92.20098660002465" />
+      <entry key="M30" value="185.6078243978306" />
+      <entry key="H1" value="280.7282781619061" />
+      <entry key="H2" value="355.2418682388707" />
+      <entry key="H4" value="403.54767416252406" />
+      <entry key="D1" value="451.43778017212605" />
+      <entry key="W1" value="460.4692883782932" />
     </decayedShown>
   </component>
   <component name="ProjectColorInfo">{
@@ -120,6 +122,7 @@
     <configuration name="Launcher" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="se233.work_space.Launcher" />
       <module name="work_space" />
+      <option name="VM_PARAMETERS" value="-Dfile.encoding=UTF-8 -Dstdout.encoding=UTF-8 -Dstderr.encoding=UTF-8 --enable-native-access=javafx.graphics" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="se233.work_space.*" />
@@ -143,6 +146,10 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Application.Launcher" />
+      <item itemvalue="Application.TracerDemo" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Launcher" />
@@ -167,7 +174,7 @@
       <updated>1791627515834</updated>
       <workItem from="1791627520733" duration="630000" />
       <workItem from="1791628213011" duration="47000" />
-      <workItem from="1791656285727" duration="3897000" />
+      <workItem from="1791656285727" duration="8383000" />
     </task>
     <servers />
   </component>
