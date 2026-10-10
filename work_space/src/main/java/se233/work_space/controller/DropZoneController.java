@@ -82,7 +82,7 @@ public class DropZoneController {
             mainController.setInitialFiles(imageFiles);
 
             Stage stage = (Stage) sourceNode.getScene().getWindow();
-            stage.setScene(new Scene(root));
+            sourceNode.getScene().setRoot(root);
         } catch (IOException e) {
             showError("UI Error", "Cannot load Main Layout.");
             e.printStackTrace();
@@ -90,11 +90,13 @@ public class DropZoneController {
     }
 
     private void showError(String title, String content) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(content);
-        alert.showAndWait();
+        javafx.application.Platform.runLater(() -> {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle(title);
+            alert.setHeaderText(null);
+            alert.setContentText(content);
+            alert.show();
+        });
     }
 
     // เพิ่มเมธอดนี้เพื่อให้ Launcher ไม่ Error

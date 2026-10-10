@@ -23,8 +23,8 @@ public class ZipProcessor {
                 while (zipEntry != null) {
                     String fileName = zipEntry.getName().toLowerCase();
 
-                    // คัดกรองเฉพาะไฟล์ที่เป็นรูปภาพ .jpg หรือ .png
-                    if (!zipEntry.isDirectory() && (fileName.endsWith(".jpg") || fileName.endsWith(".png"))) {
+                    // คัดกรองเฉพาะไฟล์ที่เป็นรูปภาพ .jpg หรือ .png .โบอิ้งทำการแอบเพิ่ม jpeg เข้าไปถึงจารไม่ขอ555
+                    if (!zipEntry.isDirectory() && (fileName.endsWith(".jpg") || fileName.endsWith(".png") || fileName.endsWith(".jpeg"))) {
                         // ป้องกันปัญหาการแตกไฟล์ที่ซ้อนโฟลเดอร์ลึกๆ โดยดึงมาแค่ชื่อไฟล์
                         File newFile = new File(tempDir.toFile(), new File(zipEntry.getName()).getName());
 

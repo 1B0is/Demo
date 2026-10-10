@@ -48,7 +48,7 @@ public class MainController {
         colorToggleGroup = new ToggleGroup();
         colorUnlimitedRadio.setToggleGroup(colorToggleGroup);
         colorCustomRadio.setToggleGroup(colorToggleGroup);
-        colorUnlimitedRadio.setSelected(true);
+        colorCustomRadio.setSelected(true);
         customColorSpinner.disableProperty().bind(colorCustomRadio.selectedProperty().not());
 
         // 2. สร้างที่ใส่รูป (ZoomableImagePane)

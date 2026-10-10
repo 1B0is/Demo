@@ -17,7 +17,6 @@
 
     <!-- Center Preview: Original vs Vectorized[cite: 3] -->
     <center>
-        <VBox alignment="CENTER">
             <SplitPane dividerPositions="0.5" VBox.vgrow="ALWAYS">
                 <!-- ฝั่งซ้าย ภาพต้นฉบับ -->
                 <VBox alignment="CENTER">
@@ -31,15 +30,9 @@
                     <StackPane fx:id="vectorImageContainer" VBox.vgrow="ALWAYS" />
                 </VBox>
             </SplitPane>
-
-            <!-- Navigation[cite: 3] -->
-            <HBox alignment="CENTER" spacing="20" style="-fx-padding: 10;">
-                <Button text="← Back" onAction="#handleBack" />
-                <Label fx:id="imageStatusLabel" text="Image 1 of 1" />
-                <Button text="Next →" onAction="#handleNext" />
-            </HBox>
-        </VBox>
     </center>
+
+
 
     <!-- Right-handed Panel: Configurations[cite: 3] -->
     <right>
@@ -62,6 +55,18 @@
 
             <!-- Progress Bar สำหรับ Parallel Processing[cite: 5] -->
             <ProgressBar fx:id="progressBar" progress="0.0" visible="false" maxWidth="Infinity" />
+
+            <!-- Navigation[cite: 3] ## ย้ายตรงนี้ให้ปุ่มเปลี่ยนภาพอยู่แผงขวาของจอตามแบบของอาจารย์-->
+            <Region VBox.vgrow="ALWAYS" />
+            <VBox spacing="8" alignment="CENTER">
+                <Label fx:id="imageStatusLabel" text="Image 1 of 1" />
+                <HBox spacing="10">
+                    <Button text="← Back" onAction="#handleBack"
+                            maxWidth="Infinity" HBox.hgrow="ALWAYS" />
+                    <Button text="Next →" onAction="#handleNext"
+                            maxWidth="Infinity" HBox.hgrow="ALWAYS" />
+                </HBox>
+            </VBox>
         </VBox>
     </right>
 </BorderPane>
