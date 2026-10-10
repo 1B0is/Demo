@@ -11,8 +11,8 @@ import javafx.scene.input.TransferMode;
 import javafx.stage.Stage;
 import javafx.scene.Node;
 
-//import se233.work_space.exception.InvalidZipException;
 // เรียกใช้ ZipProcessor ของboing
+import se233.work_space.exception.InvalidZipException;
 import se233.work_space.service.ZipProcessor;
 import se233.work_space.model.ImageSession;
 
@@ -47,14 +47,13 @@ public class DropZoneController {
 
     private void processDroppedFiles(List<File> files, Node sourceNode) {
         List<File> imageFiles = new ArrayList<>();
-
         try {
             for (File file : files) {
-                String name = file.getName().toLowerCase();
-                if (name.endsWith(".zip")) {
-                    // TODO (จุดเชื่อมต่อ): เปลี่ยนชื่อ method extractFiles() ตามที่เพื่อนตั้งไว้ใน ZipProcessor
-//                    imageFiles.addAll(ZipProcessor.extractFiles(file));
-                } else if (name.endsWith(".jpg") || name.endsWith(".png")) {
+                if (file.isDirectory() || file.getName().toLowerCase().endsWith(".zip")) {
+                    // เปิดใช้งานการเรียก ZipProcessor
+                    imageFiles.addAll(ZipProcessor.extractFiles(file));
+
+                } else if (file.getName().toLowerCase().endsWith(".jpg") || file.getName().toLowerCase().endsWith(".png")) {
                     imageFiles.add(file);
                 }
             }
@@ -66,8 +65,8 @@ public class DropZoneController {
             }
 
             // จัดการ Exception ถ้า zip พัง
-//        } catch (InvalidZipException e) {
-//            showError("Zip Extract Error", "Failed to extract ZIP: " + e.getMessage());
+        } catch (InvalidZipException e) {
+            showError("Zip Extract Error", "Failed to extract ZIP: " + e.getMessage());
         } catch (Exception e) {
             showError("System Error", "An unexpected error occurred: " + e.getMessage());
         }
