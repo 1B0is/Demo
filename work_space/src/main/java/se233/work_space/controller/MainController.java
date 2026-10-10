@@ -74,6 +74,8 @@ public class MainController {
             File currentFile = imageFiles.get(index);
             Image original = new Image(currentFile.toURI().toString());
             originalPane.setImage(original);
+            originalPane.zoomToFit();
+            vectorPane.zoomToFit();
 
             imageStatusLabel.setText("Image " + (index + 1) + " of " + imageFiles.size());
             triggerPreviewUpdate();

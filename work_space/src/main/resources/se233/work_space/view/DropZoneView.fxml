@@ -11,7 +11,7 @@
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="se233.work_space.controller.DropZoneController"
             prefHeight="600.0" prefWidth="800.0"
-            stylesheets="@style.css">
+            stylesheets="@Style.css">
 
     <!-- VBox ตรงกลางสำหรับทำ Drop Zone และรับ Event การลากวาง -->
     <VBox alignment="CENTER" spacing="20.0"
