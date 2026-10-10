@@ -1,107 +1,105 @@
 package se233.work_space.controller;
 
-import com.sun.source.tree.BreakTree;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
-import javafx.scene.layout.VBox;
-import se233.work_space.model.ImageItem;
+import javafx.stage.Stage;
+import javafx.scene.Node;
+
+//import se233.work_space.exception.InvalidZipException;
+// เรียกใช้ ZipProcessor ของboing
+import se233.work_space.service.ZipProcessor;
 import se233.work_space.model.ImageSession;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
-import java.util.Set;
 import java.util.function.Consumer;
 
-//(รับ Event การลากไฟล์ แล้วส่งต่อข้อมูลไฟล์ไปให้ Model)
 public class DropZoneController {
-    private  static final String ACTIVE_STYLE = "drag-active";
-    private  static final Set<String> IMAGE_EXT = Set.of("png", "jpg", "jpeg"); //กรองนามสกุล
-    private final ImageSession session = new ImageSession();
-
-    private Consumer<ImageSession> onImagesReady;
-
-    @FXML private VBox dropZone;
-
-    public void setOnImagesReady(Consumer<ImageSession> callback) {
-        this.onImagesReady = callback;
-    }
 
     @FXML
     private void handleDragOver(DragEvent event) {
         if (event.getDragboard().hasFiles()) {
             event.acceptTransferModes(TransferMode.COPY);
-            if (!dropZone.getStyleClass().contains(ACTIVE_STYLE)) {
-                dropZone.getStyleClass().add(ACTIVE_STYLE);
-            }
         }
         event.consume();
     }
-    @FXML
-    private void handleDragExited(DragEvent event) {
-        dropZone.getStyleClass().remove(ACTIVE_STYLE);
-        event.consume();
-    }
+
     @FXML
     private void handleDragDropped(DragEvent event) {
         Dragboard db = event.getDragboard();
         boolean success = false;
-        // check ว่ารับไฟล์ได้ ไม่กรองชนิด
         if (db.hasFiles()) {
-            success = processDropped((db.getFiles()));
+            // ส่ง Source Node (UI เดิม) ไปด้วยเพื่อใช้ปิดหน้าต่างนี้
+            processDroppedFiles(db.getFiles(), (Node) event.getSource());
+            success = true;
         }
         event.setDropCompleted(success);
         event.consume();
     }
 
-    //คืน true ถ้ามีไฟล์ที่ใช้งานได้อย่างน้อย 1 ไฟล์
-    private boolean processDropped(List<File> files) {
-        ImageSession session = new ImageSession(); //sessionใหม่ทุกครั้งที่ดรอป
-        List<File> zips = new ArrayList<>();
-        List<String> rejected = new ArrayList<>();
+    private void processDroppedFiles(List<File> files, Node sourceNode) {
+        List<File> imageFiles = new ArrayList<>();
 
-        for (File f : files) {
-            String ext = extensionOf(f);
-            if (f.isFile() && IMAGE_EXT.contains(ext)) {
-                session.add(new ImageItem(f));
-            } else if (f.isFile() && IMAGE_EXT.contains(ext)) {
-                zips.add(f); //Step B จะแตกไฟล์ตรงนี้
-            } else {
-                rejected.add(f.getName());
+        try {
+            for (File file : files) {
+                String name = file.getName().toLowerCase();
+                if (name.endsWith(".zip")) {
+                    // TODO (จุดเชื่อมต่อ): เปลี่ยนชื่อ method extractFiles() ตามที่เพื่อนตั้งไว้ใน ZipProcessor
+//                    imageFiles.addAll(ZipProcessor.extractFiles(file));
+                } else if (name.endsWith(".jpg") || name.endsWith(".png")) {
+                    imageFiles.add(file);
+                }
             }
-        }
-        System.out.println("Images: " + session.size() + ", ZIP: " + zips.size()
-        + ", Rejected: " + rejected.size());
 
-        if (!rejected.isEmpty()) {
-            showWarning("Unsupported file(s) were skipped:\n" + String.join("\n", rejected)
-                +"\n\nSupported: JPG, PNG, ZIP");
-        }
-        if (!zips.isEmpty() && session.isEmpty()){
-            showWarning("ZIP support is not implemented yet."); // ชั่วคราว จนกว่าจะทำ Step B
-        }
-        if (!session.isEmpty() && onImagesReady != null) {
-            Platform.runLater(() -> onImagesReady.accept(session));
-        }
-        return !session.isEmpty();
-    }
-    private String extensionOf(File f) {
-        String name = f.getName();
-        int dot = name.lastIndexOf(".");
-        return dot < 0 ? "" : name.substring(dot + 1).toLowerCase(Locale.ROOT);
-    }
-    private void showWarning(String message) {
+            if (!imageFiles.isEmpty()) {
+                goToMainLayout(imageFiles, sourceNode);
+            } else {
+                showError("No Valid Files", "Please drop .jpg, .png, or .zip files containing images.");
+            }
 
-        Platform.runLater(() -> {
-            Alert alert = new Alert(Alert.AlertType.WARNING, message);
-            alert.setHeaderText("Some files were skipped");
-            alert.show();
-        });
+            // จัดการ Exception ถ้า zip พัง
+//        } catch (InvalidZipException e) {
+//            showError("Zip Extract Error", "Failed to extract ZIP: " + e.getMessage());
+        } catch (Exception e) {
+            showError("System Error", "An unexpected error occurred: " + e.getMessage());
+        }
     }
 
+    private void goToMainLayout(List<File> imageFiles, Node sourceNode) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/se233/work_space/view/MainLayout.fxml"));
+            Parent root = loader.load();
+
+            // ส่งไฟล์ไปให้ MainController ก่อนเปลี่ยนหน้า
+            MainController mainController = loader.getController();
+            mainController.setInitialFiles(imageFiles);
+
+            Stage stage = (Stage) sourceNode.getScene().getWindow();
+            stage.setScene(new Scene(root));
+        } catch (IOException e) {
+            showError("UI Error", "Cannot load Main Layout.");
+            e.printStackTrace();
+        }
+    }
+
+    private void showError(String title, String content) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+
+    // เพิ่มเมธอดนี้เพื่อให้ Launcher ไม่ Error
+    public void setOnImagesReady(Consumer<ImageSession> callback) {
+        // ไว้เดี๋ยวให้ boing มาเขียนเชื่อมเพื่อสั่งเปลี่ยนหน้า
+    }
 }

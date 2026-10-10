@@ -5,19 +5,32 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+
 <!-- # หน้าแรก: กล่อง Drag files here -->
-<StackPane xmlns="http://javafx.com/javafx"
+<AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="se233.work_space.controller.DropZoneController"
-            styleClass="root-pane">
+            prefHeight="600.0" prefWidth="800.0"
+            stylesheets="@style.css">
 
-    <VBox fx:id="dropZone" alignment="CENTER" spacing="12"
-          maxWidth="420" maxHeight="280" styleClass="drop-zone"
+    <!-- VBox ตรงกลางสำหรับทำ Drop Zone และรับ Event การลากวาง -->
+    <VBox alignment="CENTER" spacing="20.0"
+          AnchorPane.topAnchor="50.0" AnchorPane.bottomAnchor="50.0"
+          AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0"
           onDragOver="#handleDragOver"
-          onDragExited="#handleDragExited"
-          onDragDropped="#handleDragDropped">
-        <Label text="⬇" styleClass="drop-icon"/>
-        <Label text="Drag file(s) here" styleClass="drop-text"/>
-        <Label text="JPG, PNG or ZIP" styleClass="drop-hint"/>
+          onDragDropped="#handleDragDropped"
+          style="-fx-background-color: #f4f3f4; -fx-border-color: #cccccc; -fx-border-width: 4; -fx-border-radius: 20; -fx-background-radius: 20; -fx-border-style: dashed;">
+
+        <children>
+            <!-- ไอคอนจำลอง (ลูกศรชี้ลง) -->
+            <Label text="📥" style="-fx-font-size: 80px; -fx-text-fill: #555555;" />
+
+            <!-- ข้อความหลัก -->
+            <Label text="Drag files here" style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #333333;" />
+
+            <!-- ข้อความรอง -->
+            <Label text="Supports single/multiple .jpg, .png, and .zip files" style="-fx-font-size: 16px; -fx-text-fill: #888888;" />
+        </children>
+
     </VBox>
-</StackPane>
+</AnchorPane>
