@@ -113,6 +113,24 @@ public class MainController {
         syncing = false;
     }
 
+    // สีสูงสุดที่เลือกได้ = min(จำนวนสีที่ตรวจเจอ, 5) (ถ้ายังไม่ตรวจ ใช้ 5 ไปก่อน)
+    private int colorCap(ImageItem item) {
+        int d = item.getDetectedColor();
+        if (d < 0) return AppSettings.MAX_CUSTOM_COLORS;
+        return Math.max(1, Math.min(AppSettings.MAX_CUSTOM_COLORS, d));
+    }
+
+    private void configureSpinner(ImageItem item) {
+        int cap = colorCap(item);
+        AppSettings s = item.getSettings();
+        int v = Math.min(s.getColorCount(), cap);
+        s.setColorCount(v);
+        boolean prev = syncing;
+        syncing = true;
+        customColorSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, cap, v));
+        syncing = prev;
+    }
+
     private void onControlsChanged() {
         if (syncing || session == null || session.isEmpty()) return;
         AppSettings s = session.getCurrent().getSettings();
@@ -168,6 +186,15 @@ public class MainController {
                         }
                     });
                 }
+
+                if (item.getDetectedColor() < 0) {
+                    item.setDetectedColor(VectorEngine.detectColors(item.getSource()));
+                    Platform.runLater(() -> {
+                       if (session != null && session.getCurrent() == item) configureSpinner(item);
+                    });
+                }
+                snapshot.setColorCount(Math.min(snapshot.getColorCount(), colorCap(item)));
+
                 if (myVersion != previewVersion) return null;      // มีงานใหม่กว่าแล้ว
 
                 VectorEngine.TraceResult r = engine.trace(item.getSource(), snapshot, d.width, d.height);
