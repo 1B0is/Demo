@@ -4,15 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e41c1fbb-8539-448c-b269-286c23685ae9" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/controller/DropZoneController.java" beforeDir="false" afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/controller/DropZoneController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/controller/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/controller/PreviewController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/model/ImageItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/model/ImageItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/service/TracerDemo.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/service/VectorEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/service/VectorEngine.java" afterDir="false" />
-    </list>
+    <list default="true" id="e41c1fbb-8539-448c-b269-286c23685ae9" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -174,7 +166,7 @@
       <updated>1791627515834</updated>
       <workItem from="1791627520733" duration="630000" />
       <workItem from="1791628213011" duration="47000" />
-      <workItem from="1791656285727" duration="8383000" />
+      <workItem from="1791656285727" duration="8505000" />
     </task>
     <servers />
   </component>
