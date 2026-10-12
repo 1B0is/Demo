@@ -18,11 +18,13 @@ import se233.work_space.model.AppSettings.DetailLevel;
 import se233.work_space.model.ImageItem;
 import se233.work_space.model.ImageSession;
 import se233.work_space.service.VectorEngine;
+import se233.work_space.service.FileTaskHandler; // <- เพิ่มการเรียกใช้ FileTaskHandler
 import se233.work_space.view.ZoomableImagePane;
 
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -113,7 +115,6 @@ public class MainController {
         syncing = false;
     }
 
-    // สีสูงสุดที่เลือกได้ = min(จำนวนสีที่ตรวจเจอ, 5) (ถ้ายังไม่ตรวจ ใช้ 5 ไปก่อน)
     private int colorCap(ImageItem item) {
         int d = item.getDetectedColor();
         if (d < 0) return AppSettings.MAX_CUSTOM_COLORS;
@@ -139,7 +140,7 @@ public class MainController {
         Integer n = customColorSpinner.getValue();
         if (n != null) s.setColorCount(n);
         s.setRemoveBackground(removeBgCheckbox.isSelected());
-        debounce.playFromStart();            // รอ 250 ms ค่อย trace
+        debounce.playFromStart();
     }
 
     private static String toLabel(DetailLevel d) {
@@ -165,7 +166,7 @@ public class MainController {
         if (session == null || session.isEmpty()) return;
 
         final ImageItem item = session.getCurrent();
-        final AppSettings snapshot = copyOf(item.getSettings());   // กันค่าเปลี่ยนระหว่างรัน
+        final AppSettings snapshot = copyOf(item.getSettings());
         final long myVersion = ++previewVersion;
 
         progressBar.setVisible(true);
@@ -176,7 +177,7 @@ public class MainController {
             protected Image call() throws Exception {
                 Dimension d = VectorEngine.displaySize(item.getSource());
 
-                if (imageChanged) {   // แสดงภาพต้นฉบับก่อน ไม่ต้องรอ trace
+                if (imageChanged) {
                     Image orig = new Image(item.getSource().toURI().toString(),
                             d.width, d.height, false, true, false);
                     Platform.runLater(() -> {
@@ -190,12 +191,12 @@ public class MainController {
                 if (item.getDetectedColor() < 0) {
                     item.setDetectedColor(VectorEngine.detectColors(item.getSource()));
                     Platform.runLater(() -> {
-                       if (session != null && session.getCurrent() == item) configureSpinner(item);
+                        if (session != null && session.getCurrent() == item) configureSpinner(item);
                     });
                 }
                 snapshot.setColorCount(Math.min(snapshot.getColorCount(), colorCap(item)));
 
-                if (myVersion != previewVersion) return null;      // มีงานใหม่กว่าแล้ว
+                if (myVersion != previewVersion) return null;
 
                 VectorEngine.TraceResult r = engine.trace(item.getSource(), snapshot, d.width, d.height);
                 item.setSvg(r.svg());
@@ -231,13 +232,60 @@ public class MainController {
     // ---------- Export (ทำใน M3) ----------
     @FXML
     private void handleExportAll() {
+        if (session == null || session.isEmpty()) {
+            showError("Export Error", "No images to export.");
+            return;
+        }
+
         DirectoryChooser chooser = new DirectoryChooser();
         chooser.setTitle("Select Output Folder");
         Stage stage = (Stage) detailLevelCombo.getScene().getWindow();
-        File dir = chooser.showDialog(stage);
-        if (dir != null) {
-            System.out.println("Export to: " + dir + " (M3)");
+        File outputDir = chooser.showDialog(stage);
+
+        if (outputDir != null) {
+            System.out.println("Export to: " + outputDir.getAbsolutePath());
+
+            // ดึงไฟล์รูปทั้งหมดจาก session
+            List<File> imageFiles = new ArrayList<>();
+            for (ImageItem item : session.getItems()) {
+                imageFiles.add(item.getSource());
+            }
+
+            // ดึงการตั้งค่า ณ ปัจจุบัน
+            String detail = detailLevelCombo.getValue();
+            int colors = colorCustomRadio.isSelected() ? customColorSpinner.getValue() : -1;
+            boolean removeBg = removeBgCheckbox.isSelected();
+
+            // แสดง Progress Bar เตรียมพร้อม
+            progressBar.setVisible(true);
+            progressBar.setProgress(0.0);
+
+            // เรียกใช้ FileTaskHandler ให้ทำงานเบื้องหลัง
+            FileTaskHandler.startBatchProcess(
+                    imageFiles,
+                    outputDir,
+                    detail,
+                    colors,
+                    removeBg,
+                    this::updateProgress,
+                    this::showSuccessDialog
+            );
         }
+    }
+
+    // เมธอดสำหรับอัปเดตแถบโหลด (ถูกเรียกมาจาก Thread ของ FileTaskHandler)
+    private void updateProgress(Double progress) {
+        progressBar.setProgress(progress);
+    }
+
+    // เมธอดสำหรับแสดง Pop-up ว่าบันทึกสำเร็จ (ถูกเรียกมาจาก Thread ของ FileTaskHandler)
+    private void showSuccessDialog() {
+        progressBar.setVisible(false);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Export Complete");
+        alert.setHeaderText(null);
+        alert.setContentText("All images have been successfully exported to SVG!");
+        alert.showAndWait();
     }
 
     private void showError(String title, String content) {
