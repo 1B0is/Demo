@@ -176,8 +176,8 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Application.MainApp" />
       <item itemvalue="Application.Launcher" />
+      <item itemvalue="Application.MainApp" />
       <item itemvalue="Application.TracerDemo" />
     </list>
     <recent_temporary>
@@ -209,6 +209,7 @@
       <workItem from="1791750686990" duration="6519000" />
       <workItem from="1791771640649" duration="401000" />
       <workItem from="1791807497498" duration="171000" />
+      <workItem from="1791825081903" duration="3000" />
     </task>
     <servers />
   </component>
