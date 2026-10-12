@@ -16,6 +16,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "doreatoon"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/1B0is/Demo.git",
+    "accountId": "6d32b109-bc59-4675-8a6f-bb59d3370bcb"
+  }
+}]]></component>
   <component name="McpProjectServerCommands">
     <commands />
     <urls />
