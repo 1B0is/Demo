@@ -8,7 +8,10 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/controller/MainController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/service/VectorEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/service/VectorEngine.java" afterDir="false" />
+<<<<<<< Updated upstream
       <change beforePath="$PROJECT_DIR$/work_space/src/main/resources/se233/work_space/view/MainLayout.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/work_space/src/main/resources/se233/work_space/view/MainLayout.fxml" afterDir="false" />
+=======
+>>>>>>> Stashed changes
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

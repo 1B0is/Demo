@@ -30,8 +30,8 @@ import java.util.TreeMap;
 public class VectorEngine {
 
     public static final int MAX_DISPLAY_SIDE = 1200;         // ขนาดภาพที่ใช้แสดงผล
-    private static final int MAX_TRACE_SIDE = 1000;          // ย่อภาพก่อน trace (Custom)
-    private static final int MAX_TRACE_SIDE_UNLIMITED = 700; // Unlimited สีเยอะ ใช้ memory มาก
+    private static final int MAX_TRACE_SIDE = 2048;          // ย่อภาพก่อน trace (Custom)
+    private static final int MAX_TRACE_SIDE_UNLIMITED = 1024; // Unlimited สีเยอะ ใช้ memory มาก
     private static final int UNLIMITED_COLORS = 64;
 
     public record TraceResult(String svg, BufferedImage preview) {}
@@ -131,13 +131,23 @@ public class VectorEngine {
 
     private HashMap<String, Float> buildOptions(AppSettings s, float svgScale, int colors) {
         HashMap<String, Float> o = new HashMap<>();
+
+        // เพิ่ม 2 บรรทัดนี้: เกลี่ยขอบพิกเซลให้เนียนก่อนแปลงเวกเตอร์ (ลบรอยหนูแทะ)
+        o.put("blurradius", 1f);
+        o.put("blurdelta", 20f);
+
         switch (s.getDetailLevel()) {
             case LOW -> { o.put("ltres", 8f);   o.put("qtres", 8f);   o.put("pathomit", 80f); }
             case MEDIUM -> { o.put("ltres", 1f);   o.put("qtres", 1f);   o.put("pathomit", 8f); }
-            case HIGH -> { o.put("ltres", 0.5f); o.put("qtres", 0.5f); o.put("pathomit", 1f); }
+            case HIGH -> {
+                // ปรับโหมด High ให้จับเส้นโค้งเนียนขึ้น และตัดเศษจุดเล็กๆ ทิ้ง
+                o.put("ltres", 0.1f);
+                o.put("qtres", 0.1f);
+                o.put("pathomit", 2f);
+            }
         }
         o.put("numberofcolors", (float) colors);
-        o.put("mincolorratio", 0f);      // ปิดการสุ่มสีใหม่ของ ImageTracer เพื่อให้ผลนิ่ง
+        o.put("mincolorratio", 0f);
         o.put("scale", svgScale);
         return o;
     }

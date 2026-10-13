@@ -275,8 +275,8 @@ public class MainController {
             String detail = detailLevelCombo.getValue();
             int colors = colorCustomRadio.isSelected() ? customColorSpinner.getValue() : -1;
             boolean removeBg = removeBgCheckbox.isSelected();
-            boolean flipH = flipHButton.isSelected();   // ✅ เพิ่ม
-            boolean flipV = flipVButton.isSelected();   // ✅ เพิ่ม
+            boolean flipH = flipHButton.isSelected();
+            boolean flipV = flipVButton.isSelected();
 
             // แสดง Progress Bar เตรียมพร้อม
             progressBar.progressProperty().unbind();
@@ -290,8 +290,8 @@ public class MainController {
                     detail,
                     colors,
                     removeBg,
-                    flipH,                          // ✅ ส่งเข้าไป
-                    flipV,                          // ✅
+                    flipH,
+                    flipV,
                     this::updateProgress,
                     this::showSuccessDialog
             );
