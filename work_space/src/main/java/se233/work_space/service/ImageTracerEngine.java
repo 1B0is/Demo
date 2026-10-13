@@ -3,11 +3,16 @@ package se233.work_space.service;
 import javafx.scene.image.Image;
 import se233.work_space.exception.CorruptedImageException;
 import se233.work_space.exception.TracerNotFoundException;
+import se233.work_space.model.AppSettings;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileWriter;
 
 public class ImageTracerEngine {
+
+    // ประกาศ VectorEngine สำหรับใช้แปลงไฟล์
+    private static final VectorEngine engine = new VectorEngine();
 
     // เมธอดสำหรับสร้างภาพพรีวิวส่งให้ UI (อ้างอิงจากที่คุณเรียกใช้ใน MainController)
     public static Image generatePreview(File imageFile, String detail, int colors, boolean removeBg)
@@ -24,12 +29,30 @@ public class ImageTracerEngine {
 
     // เมธอดสำหรับแปลงและเซฟเป็นไฟล์เวกเตอร์จริงๆ
     public static void convertAndSave(File inputFile, File outputDir, String detail, int colors, boolean removeBg) throws Exception {
-        // จำลองเวลาการประมวลผล (Processing time)
-        Thread.sleep(1500);
+        // 1. แปลงค่าพารามิเตอร์ที่รับมาให้อยู่ในรูปแบบ AppSettings
+        AppSettings settings = new AppSettings();
 
-        // สร้างไฟล์ SVG เปล่าๆ จำลองเป็นผลลัพธ์
+        if (detail != null) {
+            settings.setDetailLevel(AppSettings.DetailLevel.valueOf(detail.toUpperCase()));
+        } else {
+            settings.setDetailLevel(AppSettings.DetailLevel.MEDIUM);
+        }
+        // เช็คว่าผู้ใช้เลือก Unlimited (-1) หรือ Custom (มีจำนวนสี)
+        if (colors > 0) {
+            settings.setColorMode(AppSettings.ColorMode.CUSTOM);
+            settings.setColorCount(colors);
+        } else { settings.setColorMode(AppSettings.ColorMode.UNLIMITED);}
+        settings.setRemoveBackground(removeBg);
+
+        // 2. ส่งภาพและการตั้งค่าไปให้ VectorEngine ประมวลผลเป็น SVG
+        VectorEngine.TraceResult result = engine.trace(inputFile, settings);
+
+        // 3. กำหนดชื่อไฟล์และเขียน String SVG ที่ได้ลงในไฟล์ปลายทาง
         String outputFileName = inputFile.getName().replaceFirst("[.][^.]+$", "") + "_vectorized.svg";
         File outputFile = new File(outputDir, outputFileName);
-        outputFile.createNewFile();
+
+        try (FileWriter writer = new FileWriter(outputFile)) {
+            writer.write((result.svg()));
+        }
     }
 }
