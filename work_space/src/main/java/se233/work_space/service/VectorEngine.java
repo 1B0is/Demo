@@ -18,7 +18,7 @@ import java.util.*;
 import java.util.List;
 
 /**
- * VectorEngine — Core class that converts raster (jpg/png) into vector (SVG).
+ * VectorEngine — The core class that converts raster (jpg/png) into vector (SVG).
  * Uses ImageTracer (lib) as the backend, plus three custom pieces:
  *   1. Builds its own palette (non-random → stable results).
  *   2. Removes background (flood fill from image borders).
@@ -138,8 +138,7 @@ public class VectorEngine {
 
         try {
             int n = Math.max(1, Math.min(AppSettings.MAX_CUSTOM_COLORS, s.getColorCount()));
-            // ✅ FIX 1: pass isRemoveBackground() so bg doesn't get picked as a seed color
-            byte[][] palette = buildPalette(in.image(), n, unlimited, s.isRemoveBackground());
+            byte[][] palette = buildPalette(in.image(), n, unlimited);   // Build palette ourselves (non-random)
 
             HashMap<String, Float> opts = ImageTracer.checkoptions(buildOptions(s, svgScale, palette.length));
             ImageTracer.ImageData data = ImageTracer.loadImageData(in.image());
@@ -463,8 +462,7 @@ public class VectorEngine {
      * Builds the byte[][] palette used by ImageTracer.
      * Each entry = 4 bytes [R-128, G-128, B-128, A-128].
      */
-    private static byte[][] buildPalette(BufferedImage img, int customCount, boolean unlimited,
-                                         boolean skipBackground) {
+    private static byte[][] buildPalette(BufferedImage img, int customCount, boolean unlimited) {
         List<Cluster> all = clusters(img, unlimited ? 24 : 48);
         List<Cluster> opaque = new ArrayList<>();
         int total = 0, transCount = 0;
@@ -475,25 +473,8 @@ public class VectorEngine {
         }
         boolean hasTransparent = total > 0 && transCount >= total * 0.01;
 
-        //detect the likely bg candidate (dominant color) ---
-        Cluster bgCandidate = null;
-        if (skipBackground && !opaque.isEmpty() && opaque.get(0).count > total * 0.4) {
-            bgCandidate = opaque.get(0);
-        }
-
         int want = unlimited ? Math.min(UNLIMITED_COLORS, Math.max(1, opaque.size())) : customCount;
-
-        // Exclude bg candidate from the seed pool so it doesn't become a seed
-        List<Cluster> pickFrom = new ArrayList<>(opaque);
-        if (bgCandidate != null) pickFrom.remove(bgCandidate);
-
-        List<Cluster> seeds = pickSeeds(pickFrom, want);
-
-        // If there aren't enough seeds (image really is low-color), fall back to including bg
-        if (seeds.size() < want && bgCandidate != null) {
-            seeds.add(bgCandidate);
-        }
-
+        List<Cluster> seeds = pickSeeds(opaque, want);
         int colorSlots = Math.max(1, seeds.size());
         byte[][] pal = new byte[colorSlots + (hasTransparent ? 1 : 0)][4];
 

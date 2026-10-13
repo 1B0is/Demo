@@ -146,7 +146,7 @@
     &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;
     }
     }</component>
-  <component name="RunManager" selected="Application.Launcher">
+  <component name="RunManager" selected="Application.MainApp">
     <configuration name="Launcher" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="se233.work_space.Launcher" />
       <module name="work_space" />
@@ -194,8 +194,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Launcher" />
         <item itemvalue="Application.MainApp" />
+        <item itemvalue="Application.Launcher" />
         <item itemvalue="Application.TracerDemo" />
       </list>
     </recent_temporary>

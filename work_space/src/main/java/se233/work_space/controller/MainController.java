@@ -28,15 +28,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * MainController — Main screen. Manages:
  *   - All controls (detail, colors, removeBg, flip)
  *   - Both previews (original + vector)
  *   - 250ms debounce before re-trace
- *   - Parallel preprocessing at load time (rubric M5)
  *   - Batch export
  */
 public class MainController {
@@ -110,70 +107,11 @@ public class MainController {
     // Section 1: Receiving images from DropZone
     // ============================================================
 
-    /**
-     * Builds an ImageSession from a file list.
-     * If multiple files are dropped, runs parallel preprocessing first
-     * (detect colors for every file concurrently) — rubric M5.
-     */
+    /** Builds an ImageSession from a file list and starts showing */
     public void setInitialFiles(List<File> files) {
         ImageSession s = new ImageSession();
         for (File f : files) s.add(new ImageItem(f));
-
-        if (files.size() > 1) {
-            preprocessInParallel(s);
-        } else {
-            setSession(s);
-        }
-    }
-
-    /**
-     * Detect colors for all files in parallel (background thread pool).
-     * Shows progress bar while running. Once done → switches to session.
-     */
-    private void preprocessInParallel(ImageSession s) {
-        progressBar.progressProperty().unbind();
-        progressBar.setVisible(true);
-        progressBar.setProgress(0.0);
-
-        final int total = s.size();
-        final AtomicInteger done = new AtomicInteger(0);
-
-        // Thread pool sized to available CPU cores (cap at number of files)
-        ExecutorService pool = Executors.newFixedThreadPool(
-                Math.min(total, Runtime.getRuntime().availableProcessors()));
-
-        System.out.println("🚀 Preprocessing " + total + " files in parallel...");
-
-        for (ImageItem item : s.getItems()) {
-            pool.submit(() -> {
-                try {
-                    if (item.getDetectedColor() < 0) {
-                        item.setDetectedColor(VectorEngine.detectColors(item.getSource()));
-                        System.out.println("✅ Detected colors: " + item.getName()
-                                + " → " + item.getDetectedColor());
-                    }
-                } catch (Exception e) {
-                    System.out.println("❌ Detect failed: " + item.getName());
-                    e.printStackTrace();
-                } finally {
-                    int current = done.incrementAndGet();
-                    Platform.runLater(() -> progressBar.setProgress((double) current / total));
-                }
-            });
-        }
-
-        pool.shutdown();
-
-        // Waiter thread: once all preprocessing finishes → switch to session on UI thread
-        new Thread(() -> {
-            try {
-                pool.awaitTermination(1, TimeUnit.HOURS);
-            } catch (InterruptedException ignored) {}
-            Platform.runLater(() -> {
-                progressBar.setVisible(false);
-                setSession(s);
-            });
-        }, "preprocess-waiter").start();
+        setSession(s);
     }
 
     public void setSession(ImageSession session) {
@@ -300,7 +238,7 @@ public class MainController {
                 }
                 updateProgress(30, 100);
 
-                // Detect colors if not yet done (usually already done by parallel preprocessing)
+                // Detect colors if not yet done
                 if (item.getDetectedColor() < 0) {
                     item.setDetectedColor(VectorEngine.detectColors(item.getSource()));
                     Platform.runLater(() -> {
