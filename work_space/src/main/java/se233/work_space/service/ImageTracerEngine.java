@@ -17,9 +17,6 @@ public class ImageTracerEngine {
 
     private static final VectorEngine engine = new VectorEngine();
 
-    /**
-     * Creates a preview image (currently returns the original image — not used yet).
-     */
     public static Image generatePreview(File imageFile, String detail, int colors, boolean removeBg)
             throws TracerNotFoundException, CorruptedImageException {
         try {
@@ -30,40 +27,13 @@ public class ImageTracerEngine {
     }
 
     /**
-     * Converts 1 image → SVG, saves it into outputDir.
-     * Output name: <original-name>_vectorized.svg
+     * Converts 1 image → SVG using its own AppSettings, saves it into outputDir.
      */
-    public static void convertAndSave(File inputFile, File outputDir, String detail, int colors,
-                                      boolean removeBg, boolean flipH, boolean flipV) throws Exception {
-
-        // 1. Convert parameters into AppSettings
-        AppSettings settings = new AppSettings();
-
-        if (detail != null) {
-            settings.setDetailLevel(AppSettings.DetailLevel.valueOf(detail.toUpperCase()));
-        } else {
-            settings.setDetailLevel(AppSettings.DetailLevel.MEDIUM);
-        }
-
-        if (colors > 0) {
-            settings.setColorMode(AppSettings.ColorMode.CUSTOM);
-            settings.setColorCount(colors);
-        } else {
-            settings.setColorMode(AppSettings.ColorMode.UNLIMITED);
-        }
-        settings.setRemoveBackground(removeBg);
-<<<<<<< Updated upstream
-        settings.setFlipHorizontal(flipH);   // MUST be set, otherwise flip is lost on export
-        settings.setFlipVertical(flipV);     // (bug we hit)
-=======
-        settings.setFlipHorizontal(flipH);
-        settings.setFlipVertical(flipV);
->>>>>>> Stashed changes
-
-        // 2. Trace
+    public static void convertAndSave(File inputFile, File outputDir, AppSettings settings) throws Exception {
+        // 1. Trace directly using the image's specific settings
         VectorEngine.TraceResult result = engine.trace(inputFile, settings);
 
-        // 3. Write SVG to disk
+        // 2. Write SVG to disk
         String outputFileName = inputFile.getName().replaceFirst("[.][^.]+$", "") + "_vectorized.svg";
         File outputFile = new File(outputDir, outputFileName);
 

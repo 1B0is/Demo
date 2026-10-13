@@ -4,24 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ee621ded-5d1c-40df-bb29-0ccb6ce961f4" name="Changes" comment="">
+    <list default="true" id="b0239ee6-d3bc-4a6b-a9f1-83df9e90f636" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/controller/DropZoneController.java" beforeDir="false" afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/controller/DropZoneController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/controller/MainController.java" afterDir="false" />
-<<<<<<< Updated upstream
-      <change beforePath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/exception/CorruptedImageException.java" beforeDir="false" afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/exception/CorruptedImageException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/exception/InvalidZipException.java" beforeDir="false" afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/exception/InvalidZipException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/exception/TracerNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/exception/TracerNotFoundException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/model/AppSettings.java" beforeDir="false" afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/model/AppSettings.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/model/ImageItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/model/ImageItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/model/ImageSession.java" beforeDir="false" afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/model/ImageSession.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/service/FileTaskHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/service/FileTaskHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/service/ImageTracerEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/service/ImageTracerEngine.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/service/VectorEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/service/VectorEngine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/service/ZipProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/service/ZipProcessor.java" afterDir="false" />
-=======
-      <change beforePath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/service/ImageTracerEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/service/ImageTracerEngine.java" afterDir="false" />
->>>>>>> Stashed changes
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,103 +20,73 @@
     <commands />
     <urls />
   </component>
-<<<<<<< Updated upstream
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="4.0948804972441466E-225" />
-      <entry key="MS500" value="1.3257091275193339E-45" />
-      <entry key="S2" value="6.034093863975496E-12" />
-      <entry key="S5" value="3.252781793503782E-5" />
-      <entry key="S10" value="0.005730919813599452" />
-      <entry key="S30" value="0.22244805146682867" />
-      <entry key="S60" value="0.88731908209709" />
-      <entry key="M2" value="2.8298844320195444" />
-      <entry key="M5" value="8.336907516105896" />
-      <entry key="M10" value="18.6191042576742" />
-      <entry key="M15" value="35.256932127292345" />
-      <entry key="M30" value="106.21384748248491" />
-      <entry key="H1" value="237.16542528846796" />
-      <entry key="H2" value="385.67875527263277" />
-      <entry key="H4" value="504.58634059187875" />
-      <entry key="D1" value="640.5513324761638" />
-      <entry key="W1" value="668.2418813468543" />
+      <entry key="MS100" value="1.0" />
+      <entry key="MS500" value="1.0" />
+      <entry key="S2" value="1.0" />
+      <entry key="S5" value="1.0" />
+      <entry key="S10" value="1.000000000000673" />
+      <entry key="S30" value="1.0002361567099631" />
+      <entry key="S60" value="1.0339878972321512" />
+      <entry key="M2" value="1.4111152416778383" />
+      <entry key="M5" value="2.839440050059819" />
+      <entry key="M10" value="4.032362382799558" />
+      <entry key="M15" value="4.582341955953671" />
+      <entry key="M30" value="5.232172354947842" />
+      <entry key="H1" value="5.600079974821425" />
+      <entry key="H2" value="5.795869644709409" />
+      <entry key="H4" value="5.896870358183065" />
+      <entry key="D1" value="5.982661989717208" />
+      <entry key="W1" value="5.997519449409408" />
     </decayedCancelled>
     <decayedSelected>
-      <entry key="MS100" value="1.0000000596046448" />
-      <entry key="MS500" value="1.036040389420109" />
-      <entry key="S2" value="1.5447371282916986" />
-      <entry key="S5" value="2.130086449665601" />
-      <entry key="S10" value="2.527177826845664" />
-      <entry key="S30" value="3.9029207735610547" />
-      <entry key="S60" value="6.523397341893414" />
-      <entry key="M2" value="13.359567600547797" />
-      <entry key="M5" value="31.457980199910086" />
-      <entry key="M10" value="52.71713600468076" />
-      <entry key="M15" value="74.28160925357632" />
-      <entry key="M30" value="143.16804396867028" />
-      <entry key="H1" value="255.36779102733186" />
-      <entry key="H2" value="378.97105387203413" />
-      <entry key="H4" value="477.46639842712045" />
-      <entry key="D1" value="590.0997558961801" />
-      <entry key="W1" value="613.0548810430528" />
+      <entry key="MS100" value="0.0" />
+      <entry key="MS500" value="1.2080320120112008E-263" />
+      <entry key="S2" value="2.3123492677666398E-66" />
+      <entry key="S5" value="9.337587155273217E-27" />
+      <entry key="S10" value="1.6288873579971077E-13" />
+      <entry key="S30" value="1.1291156398471616E-4" />
+      <entry key="S60" value="0.01839087143047227" />
+      <entry key="M2" value="0.2348444022586693" />
+      <entry key="M5" value="1.0828425354599533" />
+      <entry key="M10" value="1.8023537305076527" />
+      <entry key="M15" value="2.1359924630312954" />
+      <entry key="M30" value="2.5313962028665005" />
+      <entry key="H1" value="2.755754969656797" />
+      <entry key="H2" value="2.8752850380721644" />
+      <entry key="H4" value="2.936980573686305" />
+      <entry key="D1" value="2.9894036272198274" />
+      <entry key="W1" value="2.998483935812242" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="1.232483702321754E-6" />
-      <entry key="MS500" value="0.06618561243451733" />
-      <entry key="S2" value="0.7100074482618154" />
-      <entry key="S5" value="1.5499541387377418" />
-      <entry key="S10" value="2.163286686237634" />
-      <entry key="S30" value="3.926856792172935" />
-      <entry key="S60" value="7.235876369775974" />
-      <entry key="M2" value="16.010597031712564" />
-      <entry key="M5" value="39.63902507029532" />
-      <entry key="M10" value="71.2126749036993" />
-      <entry key="M15" value="109.42544679445771" />
-      <entry key="M30" value="249.27428048006357" />
-      <entry key="H1" value="492.4351681293271" />
-      <entry key="H2" value="764.5751901258654" />
-      <entry key="H4" value="982.0049147816586" />
-      <entry key="D1" value="1230.6410701595787" />
-      <entry key="W1" value="1281.295270912027" />
+      <entry key="MS100" value="8.813044406265232E-5" />
+      <entry key="MS500" value="0.1545344076151189" />
+      <entry key="S2" value="0.6269837685858908" />
+      <entry key="S5" value="0.8296645218481976" />
+      <entry key="S10" value="0.9108592217514558" />
+      <entry key="S30" value="0.9697004824903364" />
+      <entry key="S60" value="1.0364919255871867" />
+      <entry key="M2" value="1.6353824853066203" />
+      <entry key="M5" value="3.9139817947611397" />
+      <entry key="M10" value="5.828844192651137" />
+      <entry key="M15" value="6.7138880807180215" />
+      <entry key="M30" value="7.761030441470917" />
+      <entry key="H1" value="8.354476559994948" />
+      <entry key="H2" value="8.670451699177773" />
+      <entry key="H4" value="8.833493300552924" />
+      <entry key="D1" value="8.97200514229296" />
+      <entry key="W1" value="8.995994724473734" />
     </decayedShown>
   </component>
-  <component name="ProjectColorInfo">{
-    &quot;customColor&quot;: &quot;&quot;,
-    &quot;associatedIndex&quot;: 3
-    }</component>
-  <component name="ProjectId" id="3KV0dQQ7xiAhJLIGk9DVUR0JuDW" />
-  <component name="ProjectViewState">
-    <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showLibraryContents" value="true" />
-  </component>
-  <component name="PropertiesComponent">{
-    &quot;keyToString&quot;: {
-    &quot;Application.Launcher.executor&quot;: &quot;Run&quot;,
-    &quot;Application.MainApp.executor&quot;: &quot;Run&quot;,
-    &quot;Application.TracerDemo.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
-    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.jshint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.jshint&quot;: &quot;&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;
-    }
-    }</component>
-  <component name="RunManager" selected="Application.MainApp">
-=======
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Launcher.executor": "Run",
+    "git-widget-placeholder": "main",
+    "node.js.selected.package.tslint": "(autodetect)"
+  }
+}]]></component>
   <component name="RunManager">
->>>>>>> Stashed changes
     <configuration name="Launcher" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="se233.work_space.Launcher" />
       <module name="work_space" />
@@ -144,13 +102,7 @@
     </configuration>
     <recent_temporary>
       <list>
-<<<<<<< Updated upstream
-        <item itemvalue="Application.MainApp" />
         <item itemvalue="Application.Launcher" />
-        <item itemvalue="Application.TracerDemo" />
-=======
-        <item itemvalue="Application.Launcher" />
->>>>>>> Stashed changes
       </list>
     </recent_temporary>
   </component>

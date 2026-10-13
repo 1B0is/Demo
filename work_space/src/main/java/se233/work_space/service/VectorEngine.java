@@ -166,14 +166,14 @@ public class VectorEngine {
     private HashMap<String, Float> buildOptions(AppSettings s, float svgScale, int colors) {
         HashMap<String, Float> o = new HashMap<>();
 
-        // Pre-blur to smooth pixel edges before vectorizing
-        o.put("blurradius", 1f);
-        o.put("blurdelta", 20f);
+        // Pre-blur to smooth pixel edges before vectorizing no blur
+        o.put("blurradius", 0f);
+        o.put("blurdelta", 0f);
 
         switch (s.getDetailLevel()) {
             case LOW -> { o.put("ltres", 8f);   o.put("qtres", 8f);   o.put("pathomit", 80f); }
             case MEDIUM -> { o.put("ltres", 1f);   o.put("qtres", 1f);   o.put("pathomit", 8f); }
-            case HIGH -> { o.put("ltres", 0.1f); o.put("qtres", 0.1f); o.put("pathomit", 2f); }
+            case HIGH -> { o.put("ltres", 0.5f); o.put("qtres", 0.5f); o.put("pathomit", 2f); }
         }
         o.put("numberofcolors", (float) colors);
         o.put("mincolorratio", 0f);      // Disable ImageTracer's color re-sampling → stable output
@@ -517,6 +517,7 @@ public class VectorEngine {
             // Apply flips
             if (flipH) { g.translate(ii.width, 0); g.scale(-1, 1); }
             if (flipV) { g.translate(0, ii.height); g.scale(1, -1); }
+            g.setStroke(new BasicStroke((float) (0.8/sx)));
 
             g.setStroke(new BasicStroke((float) (1.0 / sx)));  // ~1px stroke to hide color seams
 

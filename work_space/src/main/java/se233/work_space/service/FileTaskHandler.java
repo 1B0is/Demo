@@ -2,6 +2,9 @@ package se233.work_space.service;
 
 import javafx.application.Platform;
 import javafx.concurrent.Task;
+import se233.work_space.model.AppSettings;
+import se233.work_space.model.ImageItem;
+
 import java.io.File;
 import java.util.List;
 import java.util.concurrent.*;
@@ -9,35 +12,30 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 
 /**
- * FileTaskHandler — Handles batch export in the background.
- * Chooses parallel (ThreadPool) or sequential based on:
- *   parallel when detail = Medium AND colors is 2..5 (per project spec).
+ * FileTaskHandler — Handles batch export in the background using individual ImageItem settings.
  */
 public class FileTaskHandler {
 
-    /**
-     * Starts exporting all images.
-     * @param flipH, flipV MUST be forwarded to convertAndSave, otherwise SVG won't flip.
-     */
     public static void startBatchProcess(
-            List<File> imageFiles,
+            List<ImageItem> items,
             File outputDir,
-            String detail,
-            int colors,
-            boolean removeBg,
-            boolean flipH,
-            boolean flipV,
             Consumer<Double> onProgressUpdate,   // Progress bar callback
             Runnable onComplete) {                // Completion callback
 
         Task<Void> exportTask = new Task<Void>() {
             @Override
             protected Void call() throws Exception {
-                int totalFiles = imageFiles.size();
+                int totalFiles = items.size();
                 AtomicInteger processedFiles = new AtomicInteger(0);
 
-                // Parallel condition per spec: Medium + Custom 2..5 colors
-                boolean isParallel = detail.equals("Medium") && colors > 2 && colors <= 5;
+                // Check parallel condition using the first item's settings as reference
+                boolean isParallel = false;
+                if (!items.isEmpty()) {
+                    AppSettings ref = items.get(0).getSettings();
+                    isParallel = ref.getDetailLevel() == AppSettings.DetailLevel.MEDIUM
+                            && ref.getColorCount() >= 2
+                            && ref.getColorCount() <= 5;
+                }
 
                 if (isParallel) {
                     // ---- Parallel mode ----
@@ -45,15 +43,17 @@ public class FileTaskHandler {
                     ExecutorService executor = Executors.newFixedThreadPool(
                             Runtime.getRuntime().availableProcessors());
 
-                    for (File file : imageFiles) {
+                    for (ImageItem item : items) {
                         executor.submit(() -> {
                             try {
-                                ImageTracerEngine.convertAndSave(
-                                        file, outputDir, detail, colors, removeBg, flipH, flipV);
+                                File file = item.getSource();
+                                AppSettings settingsSnapshot = item.getSettings().copy();
+
+                                ImageTracerEngine.convertAndSave(file, outputDir, settingsSnapshot);
                                 updateProgressSafe(processedFiles.incrementAndGet(),
                                         totalFiles, onProgressUpdate);
                             } catch (Exception e) {
-                                System.out.println("❌ Issues on files: " + file.getName());
+                                System.out.println("❌ Issues on files: " + item.getName());
                                 e.printStackTrace();
                             }
                         });
@@ -63,10 +63,12 @@ public class FileTaskHandler {
 
                 } else {
                     // ---- Sequential mode ----
-                    for (File file : imageFiles) {
+                    for (ImageItem item : items) {
                         try {
-                            ImageTracerEngine.convertAndSave(
-                                    file, outputDir, detail, colors, removeBg, flipH, flipV);
+                            File file = item.getSource();
+                            AppSettings settingsSnapshot = item.getSettings().copy();
+
+                            ImageTracerEngine.convertAndSave(file, outputDir, settingsSnapshot);
                             updateProgressSafe(processedFiles.incrementAndGet(),
                                     totalFiles, onProgressUpdate);
                         } catch (Exception e) {
@@ -79,14 +81,12 @@ public class FileTaskHandler {
 
             @Override
             protected void succeeded() {
-                // onComplete must run on JavaFX thread (it touches UI)
                 Platform.runLater(onComplete);
             }
         };
         new Thread(exportTask).start();
     }
 
-    /** Updates the progress bar on JavaFX thread (thread-safe) */
     private static void updateProgressSafe(int current, int total, Consumer<Double> onProgressUpdate) {
         double progress = (double) current / total;
         Platform.runLater(() -> onProgressUpdate.accept(progress));
