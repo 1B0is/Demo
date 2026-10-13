@@ -9,28 +9,34 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileWriter;
 
+/**
+ * ImageTracerEngine — Thin wrapper for "convert 1 image → save SVG".
+ * Used during batch export; each thread calls convertAndSave().
+ */
 public class ImageTracerEngine {
 
-    // ประกาศ VectorEngine สำหรับใช้แปลงไฟล์
     private static final VectorEngine engine = new VectorEngine();
 
-    // เมธอดสำหรับสร้างภาพพรีวิวส่งให้ UI (อ้างอิงจากที่คุณเรียกใช้ใน MainController)
+    /**
+     * Creates a preview image (currently returns the original image — not used yet).
+     */
     public static Image generatePreview(File imageFile, String detail, int colors, boolean removeBg)
             throws TracerNotFoundException, CorruptedImageException {
-
         try {
-            // ในโปรเจกต์จริง ต้องรัน CommandLine (เช่น Potrace) ตรงนี้
-            // แต่เพื่อการพรีวิว ให้โหลดภาพเดิมขึ้นมาแสดงก่อน
             return new Image(new FileInputStream(imageFile));
         } catch (Exception e) {
             throw new CorruptedImageException("Cannot process the image file.");
         }
     }
 
-    // ✅ เพิ่มพารามิเตอร์ flipH, flipV
+    /**
+     * Converts 1 image → SVG, saves it into outputDir.
+     * Output name: <original-name>_vectorized.svg
+     */
     public static void convertAndSave(File inputFile, File outputDir, String detail, int colors,
                                       boolean removeBg, boolean flipH, boolean flipV) throws Exception {
-        // 1. แปลงค่าพารามิเตอร์ที่รับมาให้อยู่ในรูปแบบ AppSettings
+
+        // 1. Convert parameters into AppSettings
         AppSettings settings = new AppSettings();
 
         if (detail != null) {
@@ -38,7 +44,7 @@ public class ImageTracerEngine {
         } else {
             settings.setDetailLevel(AppSettings.DetailLevel.MEDIUM);
         }
-        // เช็คว่าผู้ใช้เลือก Unlimited (-1) หรือ Custom (มีจำนวนสี)
+
         if (colors > 0) {
             settings.setColorMode(AppSettings.ColorMode.CUSTOM);
             settings.setColorCount(colors);
@@ -46,13 +52,13 @@ public class ImageTracerEngine {
             settings.setColorMode(AppSettings.ColorMode.UNLIMITED);
         }
         settings.setRemoveBackground(removeBg);
-        settings.setFlipHorizontal(flipH);   // ✅ เพิ่ม
-        settings.setFlipVertical(flipV);     // ✅ เพิ่ม
+        settings.setFlipHorizontal(flipH);   // MUST be set, otherwise flip is lost on export
+        settings.setFlipVertical(flipV);     // (bug we hit)
 
-        // 2. ส่งภาพและการตั้งค่าไปให้ VectorEngine ประมวลผลเป็น SVG
+        // 2. Trace
         VectorEngine.TraceResult result = engine.trace(inputFile, settings);
 
-        // 3. กำหนดชื่อไฟล์และเขียน String SVG ที่ได้ลงในไฟล์ปลายทาง
+        // 3. Write SVG to disk
         String outputFileName = inputFile.getName().replaceFirst("[.][^.]+$", "") + "_vectorized.svg";
         File outputFile = new File(outputDir, outputFileName);
 

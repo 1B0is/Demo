@@ -2,18 +2,23 @@ package se233.work_space.service;
 
 import javafx.application.Platform;
 import javafx.concurrent.Task;
-
 import java.io.File;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
-import java.util.function.Consumer;
+import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Consumer;
 
+/**
+ * FileTaskHandler — Handles batch export in the background.
+ * Chooses parallel (ThreadPool) or sequential based on:
+ *   parallel when detail = Medium AND colors is 2..5 (per project spec).
+ */
 public class FileTaskHandler {
 
-    // ✅ เพิ่มพารามิเตอร์ flipH, flipV
+    /**
+     * Starts exporting all images.
+     * @param flipH, flipV MUST be forwarded to convertAndSave, otherwise SVG won't flip.
+     */
     public static void startBatchProcess(
             List<File> imageFiles,
             File outputDir,
@@ -22,20 +27,20 @@ public class FileTaskHandler {
             boolean removeBg,
             boolean flipH,
             boolean flipV,
-            Consumer<Double> onProgressUpdate,
-            Runnable onComplete) {
-        // ใช้ Task เพื่อป้องกันไม่ให้ UI หลักค้าง
+            Consumer<Double> onProgressUpdate,   // Progress bar callback
+            Runnable onComplete) {                // Completion callback
+
         Task<Void> exportTask = new Task<Void>() {
             @Override
             protected Void call() throws Exception {
                 int totalFiles = imageFiles.size();
                 AtomicInteger processedFiles = new AtomicInteger(0);
 
-                // เช็คเงื่อนไข Parallel ตามโจทย์: Detail = Medium, Colors = 2 ถึง 5
+                // Parallel condition per spec: Medium + Custom 2..5 colors
                 boolean isParallel = detail.equals("Medium") && colors > 2 && colors <= 5;
 
                 if (isParallel) {
-                    // ประมวลผลแบบขนาน (Parallel)
+                    // ---- Parallel mode ----
                     System.out.println("🚀 Parallel mode working .....");
                     ExecutorService executor = Executors.newFixedThreadPool(
                             Runtime.getRuntime().availableProcessors());
@@ -43,13 +48,8 @@ public class FileTaskHandler {
                     for (File file : imageFiles) {
                         executor.submit(() -> {
                             try {
-                                System.out.println("⏳ Converting : " + file.getName());
-
-                                // ✅ ส่ง flipH, flipV ต่อ
                                 ImageTracerEngine.convertAndSave(
                                         file, outputDir, detail, colors, removeBg, flipH, flipV);
-
-                                System.out.println("✅ Success saved: " + file.getName());
                                 updateProgressSafe(processedFiles.incrementAndGet(),
                                         totalFiles, onProgressUpdate);
                             } catch (Exception e) {
@@ -62,16 +62,11 @@ public class FileTaskHandler {
                     executor.awaitTermination(1, TimeUnit.HOURS);
 
                 } else {
-                    // ประมวลผลแบบทีละรูป (Sequential)
+                    // ---- Sequential mode ----
                     for (File file : imageFiles) {
                         try {
-                            System.out.println("⏳ Converting : " + file.getName());
-
-                            // ✅ ส่ง flipH, flipV ต่อ
                             ImageTracerEngine.convertAndSave(
                                     file, outputDir, detail, colors, removeBg, flipH, flipV);
-
-                            System.out.println("✅ Done : " + file.getName());
                             updateProgressSafe(processedFiles.incrementAndGet(),
                                     totalFiles, onProgressUpdate);
                         } catch (Exception e) {
@@ -84,12 +79,14 @@ public class FileTaskHandler {
 
             @Override
             protected void succeeded() {
+                // onComplete must run on JavaFX thread (it touches UI)
                 Platform.runLater(onComplete);
             }
         };
         new Thread(exportTask).start();
     }
 
+    /** Updates the progress bar on JavaFX thread (thread-safe) */
     private static void updateProgressSafe(int current, int total, Consumer<Double> onProgressUpdate) {
         double progress = (double) current / total;
         Platform.runLater(() -> onProgressUpdate.accept(progress));

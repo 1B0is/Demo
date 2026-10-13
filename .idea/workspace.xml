@@ -6,12 +6,18 @@
   <component name="ChangeListManager">
     <list default="true" id="e41c1fbb-8539-448c-b269-286c23685ae9" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/controller/DropZoneController.java" beforeDir="false" afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/controller/DropZoneController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/controller/MainController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/exception/CorruptedImageException.java" beforeDir="false" afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/exception/CorruptedImageException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/exception/InvalidZipException.java" beforeDir="false" afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/exception/InvalidZipException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/exception/TracerNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/exception/TracerNotFoundException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/model/AppSettings.java" beforeDir="false" afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/model/AppSettings.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/model/ImageItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/model/ImageItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/model/ImageSession.java" beforeDir="false" afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/model/ImageSession.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/service/FileTaskHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/service/FileTaskHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/service/ImageTracerEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/service/ImageTracerEngine.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/service/VectorEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/service/VectorEngine.java" afterDir="false" />
-<<<<<<< Updated upstream
-      <change beforePath="$PROJECT_DIR$/work_space/src/main/resources/se233/work_space/view/MainLayout.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/work_space/src/main/resources/se233/work_space/view/MainLayout.fxml" afterDir="false" />
-=======
->>>>>>> Stashed changes
+      <change beforePath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/service/ZipProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/service/ZipProcessor.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

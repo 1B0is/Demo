@@ -8,13 +8,21 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
+/**
+ * ZipProcessor — Extracts a user-dropped .zip file and keeps only image files (.jpg/.jpeg/.png).
+ * Extraction goes to an OS temp directory.
+ */
 public class ZipProcessor {
 
+    /**
+     * Extracts a zip file and returns the list of image files found inside.
+     * @throws InvalidZipException if the zip cannot be opened or read
+     */
     public static List<File> extractFiles(File zipFile) throws InvalidZipException {
         List<File> extractedImages = new ArrayList<>();
 
         try {
-            // สร้างโฟลเดอร์ชั่วคราวสำหรับเก็บไฟล์ที่แตกออกมา
+            // Create an OS temp dir to hold the extracted files
             Path tempDir = Files.createTempDirectory("vector_unzip_");
 
             try (ZipInputStream zis = new ZipInputStream(new FileInputStream(zipFile))) {
@@ -23,12 +31,14 @@ public class ZipProcessor {
                 while (zipEntry != null) {
                     String fileName = zipEntry.getName().toLowerCase();
 
-                    // คัดกรองเฉพาะไฟล์ที่เป็นรูปภาพ .jpg หรือ .png .โบอิ้งทำการแอบเพิ่ม jpeg เข้าไปถึงจารไม่ขอ555
-                    if (!zipEntry.isDirectory() && (fileName.endsWith(".jpg") || fileName.endsWith(".png") || fileName.endsWith(".jpeg"))) {
-                        // ป้องกันปัญหาการแตกไฟล์ที่ซ้อนโฟลเดอร์ลึกๆ โดยดึงมาแค่ชื่อไฟล์
+                    // Only take image files, ignore directories
+                    if (!zipEntry.isDirectory() &&
+                            (fileName.endsWith(".jpg") || fileName.endsWith(".png") || fileName.endsWith(".jpeg"))) {
+
+                        // Use only the file name (strip inner path in zip) to prevent path traversal
                         File newFile = new File(tempDir.toFile(), new File(zipEntry.getName()).getName());
 
-                        // คัดลอกข้อมูลไฟล์จาก zip ลงโฟลเดอร์ชั่วคราว
+                        // Copy file data out of the zip
                         Files.copy(zis, newFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
                         extractedImages.add(newFile);
                     }
