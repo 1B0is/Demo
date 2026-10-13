@@ -4,10 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e41c1fbb-8539-448c-b269-286c23685ae9" name="Changes" comment="">
+    <list default="true" id="ee621ded-5d1c-40df-bb29-0ccb6ce961f4" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/controller/DropZoneController.java" beforeDir="false" afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/controller/DropZoneController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/controller/MainController.java" afterDir="false" />
+<<<<<<< Updated upstream
       <change beforePath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/exception/CorruptedImageException.java" beforeDir="false" afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/exception/CorruptedImageException.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/exception/InvalidZipException.java" beforeDir="false" afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/exception/InvalidZipException.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/exception/TracerNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/exception/TracerNotFoundException.java" afterDir="false" />
@@ -18,42 +19,20 @@
       <change beforePath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/service/ImageTracerEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/service/ImageTracerEngine.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/service/VectorEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/service/VectorEngine.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/service/ZipProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/service/ZipProcessor.java" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/service/ImageTracerEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/service/ImageTracerEngine.java" afterDir="false" />
+>>>>>>> Stashed changes
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="46" />
-  </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Class" />
-        <option value="Exception" />
-      </list>
-    </option>
-  </component>
-  <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="GitHubPullRequestSearchHistory">{
-    &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;doreatoon&quot;
-    }
-    }</component>
-  <component name="GithubPullRequestsUISettings">{
-    &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/1B0is/Demo.git&quot;,
-    &quot;accountId&quot;: &quot;6d32b109-bc59-4675-8a6f-bb59d3370bcb&quot;
-    }
-    }</component>
   <component name="McpProjectServerCommands">
     <commands />
     <urls />
   </component>
+<<<<<<< Updated upstream
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
       <entry key="MS100" value="4.0948804972441466E-225" />
@@ -147,10 +126,12 @@
     }
     }</component>
   <component name="RunManager" selected="Application.MainApp">
+=======
+  <component name="RunManager">
+>>>>>>> Stashed changes
     <configuration name="Launcher" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="se233.work_space.Launcher" />
       <module name="work_space" />
-      <option name="VM_PARAMETERS" value="-Dfile.encoding=UTF-8 -Dstdout.encoding=UTF-8 -Dstderr.encoding=UTF-8 --enable-native-access=javafx.graphics" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="se233.work_space.*" />
@@ -161,73 +142,19 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MainApp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="se233.work_space.MainApp" />
-      <module name="work_space" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="se233.work_space.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TracerDemo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="se233.work_space.service.TracerDemo" />
-      <module name="work_space" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="se233.work_space.service.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <list>
-      <item itemvalue="Application.Launcher" />
-      <item itemvalue="Application.MainApp" />
-      <item itemvalue="Application.TracerDemo" />
-    </list>
     <recent_temporary>
       <list>
+<<<<<<< Updated upstream
         <item itemvalue="Application.MainApp" />
         <item itemvalue="Application.Launcher" />
         <item itemvalue="Application.TracerDemo" />
+=======
+        <item itemvalue="Application.Launcher" />
+>>>>>>> Stashed changes
       </list>
     </recent_temporary>
   </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="bundled-jdk-30f59d01ecdd-34e2839f716b-intellij.indexing.shared.core-IU-262.9437.185" />
-        <option value="bundled-js-predefined-d6986cc7102b-4abd2a77f808-JavaScript-IU-262.9437.185" />
-      </set>
-    </attachedChunks>
-  </component>
   <component name="TaskManager">
-    <task active="true" id="Default" summary="Default task">
-      <changelist id="e41c1fbb-8539-448c-b269-286c23685ae9" name="Changes" comment="" />
-      <created>1791627515834</created>
-      <option name="number" value="Default" />
-      <option name="presentableId" value="Default" />
-      <updated>1791627515834</updated>
-      <workItem from="1791627520733" duration="630000" />
-      <workItem from="1791628213011" duration="47000" />
-      <workItem from="1791656285727" duration="8505000" />
-      <workItem from="1791750686990" duration="6519000" />
-      <workItem from="1791771640649" duration="401000" />
-      <workItem from="1791807497498" duration="171000" />
-      <workItem from="1791825081903" duration="3000" />
-      <workItem from="1791825158299" duration="2998000" />
-      <workItem from="1791895813982" duration="4006000" />
-    </task>
     <servers />
-  </component>
-  <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
   </component>
 </project>

@@ -52,8 +52,13 @@ public class ImageTracerEngine {
             settings.setColorMode(AppSettings.ColorMode.UNLIMITED);
         }
         settings.setRemoveBackground(removeBg);
+<<<<<<< Updated upstream
         settings.setFlipHorizontal(flipH);   // MUST be set, otherwise flip is lost on export
         settings.setFlipVertical(flipV);     // (bug we hit)
+=======
+        settings.setFlipHorizontal(flipH);
+        settings.setFlipVertical(flipV);
+>>>>>>> Stashed changes
 
         // 2. Trace
         VectorEngine.TraceResult result = engine.trace(inputFile, settings);

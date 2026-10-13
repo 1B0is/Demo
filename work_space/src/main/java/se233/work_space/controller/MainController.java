@@ -222,7 +222,12 @@ public class MainController {
         Task<Image> task = new Task<>() {
             @Override
             protected Image call() throws Exception {
+<<<<<<< Updated upstream
                 updateProgress(10, 100);
+=======
+            // Prog bar
+                updateProgress(10, 100); // อัปเดตแถบโหลดเป็น 10%
+>>>>>>> Stashed changes
                 Dimension d = VectorEngine.displaySize(item.getSource());
 
                 if (imageChanged) {
