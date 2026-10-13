@@ -172,12 +172,16 @@ public class MainController {
         final AppSettings snapshot = item.getSettings().copy();
         final long myVersion = ++previewVersion;
 
+        // ✅ ปลดการเชื่อมต่อของเก่าออกก่อนเริ่มใหม่ และเซ็ตแถบโหลดเป็น 0%
+        progressBar.progressProperty().unbind();
         progressBar.setVisible(true);
-        progressBar.setProgress(ProgressBar.INDETERMINATE_PROGRESS);
+        progressBar.setProgress(0.0);
 
         Task<Image> task = new Task<>() {
             @Override
             protected Image call() throws Exception {
+
+                updateProgress(10, 100); // อัปเดตแถบโหลดเป็น 10%
                 Dimension d = VectorEngine.displaySize(item.getSource());
 
                 if (imageChanged) {
@@ -191,6 +195,8 @@ public class MainController {
                     });
                 }
 
+                updateProgress(30, 100); // โหลดภาพต้นฉบับเสร็จแล้ว (30%)
+
                 if (item.getDetectedColor() < 0) {
                     item.setDetectedColor(VectorEngine.detectColors(item.getSource()));
                     Platform.runLater(() -> {
@@ -201,21 +207,32 @@ public class MainController {
 
                 if (myVersion != previewVersion) return null;
 
+                updateProgress(60, 100);
+
                 VectorEngine.TraceResult r = engine.trace(item.getSource(), snapshot, d.width, d.height);
                 item.setSvg(r.svg());
-                return toFxImage(r.preview());
+
+                updateProgress(90,100); // ประมวลผล SVG เสร็จ เตรียมวาดพรีวิว (90%)
+
+                Image previewImg = toFxImage(r.preview());
+                updateProgress(100,100); // ทำงานเสร็จสมบูรณ์ (100%)
+
+                return previewImg;
             }
         };
+        // ✅ ผูก (Bind) ค่า Progress ของ Task เข้ากับแถบโหลดให้ขยับตาม Real-time
+        progressBar.progressProperty().bind(task.progressProperty());
 
         task.setOnSucceeded(e -> {
             if (myVersion != previewVersion || task.getValue() == null) return;
-            vectorPane.setImage(task.getValue());
+            vectorPane.setImage(task.getValue()); // ปลดการผูกเมื่อเสร็จสิ้น
             if (imageChanged) vectorPane.zoomToFit();
             progressBar.setVisible(false);
         });
 
         task.setOnFailed(e -> {
             if (myVersion != previewVersion) return;
+            progressBar.progressProperty().unbind();// ปลดการผูกเมื่อเกิด Error
             progressBar.setVisible(false);
             Throwable ex = task.getException();
             showError("Preview Error", ex == null ? "Unknown error" : ex.getMessage());
@@ -262,6 +279,7 @@ public class MainController {
             boolean flipV = flipVButton.isSelected();   // ✅ เพิ่ม
 
             // แสดง Progress Bar เตรียมพร้อม
+            progressBar.progressProperty().unbind();
             progressBar.setVisible(true);
             progressBar.setProgress(0.0);
 

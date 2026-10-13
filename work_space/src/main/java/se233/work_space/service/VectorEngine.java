@@ -270,8 +270,9 @@ public class VectorEngine {
         }
 
         StringBuilder svg = new StringBuilder();
-        svg.append("<svg width=\"").append(w).append("\" height=\"").append(h)
-                .append("\" viewBox=\"0 0 ").append(w).append(" ").append(h)
+        // กำหนด width และ height เป็น 100% เพื่อให้พอดีกับจอเบราว์เซอร์ แต่ยังคงสัดส่วนจริงไว้ใน viewBox
+        svg.append("<svg width=\"100%\" height=\"100%\"")
+                .append(" viewBox=\"0 0 ").append(w).append(" ").append(h)
                 .append("\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\">");
         if (defs.length() > 0) svg.append("<defs>").append(defs).append("</defs>");
 

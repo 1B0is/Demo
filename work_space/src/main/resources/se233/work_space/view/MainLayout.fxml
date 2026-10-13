@@ -55,10 +55,10 @@
 
             <Label text="Transform" style="-fx-font-weight: bold; -fx-font-size: 14; -fx-padding: 10 0 0 0;" />
             <HBox spacing="8">
-                <ToggleButton fx:id="flipHButton" text="Flip ↔" maxWidth="Infinity" HBox.hgrow="ALWAYS">
+                <ToggleButton fx:id="flipHButton" text="↔" maxWidth="Infinity" HBox.hgrow="ALWAYS">
                     <tooltip><Tooltip text="Flip left ↔ right"/></tooltip>
                 </ToggleButton>
-                <ToggleButton fx:id="flipVButton" text="Flip ↕" maxWidth="Infinity" HBox.hgrow="ALWAYS">
+                <ToggleButton fx:id="flipVButton" text="↕" maxWidth="Infinity" HBox.hgrow="ALWAYS">
                     <tooltip><Tooltip text="Flip top ↕ bottom"/></tooltip>
                 </ToggleButton>
             </HBox>
