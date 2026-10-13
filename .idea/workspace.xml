@@ -5,11 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e41c1fbb-8539-448c-b269-286c23685ae9" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/exception/TracerNotFoundException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/service/ImageTracerEngine.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/controller/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/service/FileTaskHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/work_space/src/main/java/se233/work_space/service/FileTaskHandler.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
