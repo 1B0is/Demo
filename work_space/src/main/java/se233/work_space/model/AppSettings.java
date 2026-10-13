@@ -10,7 +10,8 @@ public class AppSettings {
     public static final int MAX_CUSTOM_COLORS = 5;
 
     public enum DetailLevel {LOW, MEDIUM, HIGH}
-    public enum ColorMode { UNLIMITED, CUSTOM }
+
+    public enum ColorMode {UNLIMITED, CUSTOM}
 
     private DetailLevel detailLevel = DetailLevel.MEDIUM;
     private ColorMode colorMode = ColorMode.CUSTOM;
@@ -19,26 +20,54 @@ public class AppSettings {
     private boolean flipHorizontal = false;   // พลิกซ้าย-ขวา
     private boolean flipVertical = false;     // พลิกบน-ล่าง
 
-    public DetailLevel getDetailLevel() { return detailLevel;}
-    public void setDetailLevel(DetailLevel d) { this.detailLevel = d; }
+    public DetailLevel getDetailLevel() {
+        return detailLevel;
+    }
 
-    public ColorMode getColorMode() { return colorMode;}
-    public void setColorMode (ColorMode m) { this.colorMode = m; }
+    public void setDetailLevel(DetailLevel d) {
+        this.detailLevel = d;
+    }
 
-    public int getColorCount() { return colorCount;}
-    public void setColorCount (int n) {
+    public ColorMode getColorMode() {
+        return colorMode;
+    }
+
+    public void setColorMode(ColorMode m) {
+        this.colorMode = m;
+    }
+
+    public int getColorCount() {
+        return colorCount;
+    }
+
+    public void setColorCount(int n) {
         this.colorCount = Math.clamp(n, 1, MAX_CUSTOM_COLORS);
         //Math.clamp(value, min, max) จำกัดค่าให้อยู่ในช่วง min ถึง max ผลเหมือนกับ Math.max(1, Math.min(n, MAX)) ทุกกรณี เช่น n = 0 ได้ 1, n = 3 ได้ 3, n = 9 ได้ 5
     }
 
-    public boolean isRemoveBackground() { return removeBackground;}
-    public void setRemoveBackground(boolean b) {this.removeBackground = b;}
+    public boolean isRemoveBackground() {
+        return removeBackground;
+    }
 
-    public boolean isFlipHorizontal() { return flipHorizontal; }
-    public void setFlipHorizontal(boolean b) { this.flipHorizontal = b; }
+    public void setRemoveBackground(boolean b) {
+        this.removeBackground = b;
+    }
 
-    public boolean isFlipVertical() { return flipVertical; }
-    public void setFlipVertical(boolean b) { this.flipVertical = b; }
+    public boolean isFlipHorizontal() {
+        return flipHorizontal;
+    }
+
+    public void setFlipHorizontal(boolean b) {
+        this.flipHorizontal = b;
+    }
+
+    public boolean isFlipVertical() {
+        return flipVertical;
+    }
+
+    public void setFlipVertical(boolean b) {
+        this.flipVertical = b;
+    }
 
     // สำเนาค่าตั้ง (ใช้ทำ snapshot ก่อนส่งให้เธรดงาน)
     public AppSettings copy() {

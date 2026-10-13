@@ -13,12 +13,15 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class FileTaskHandler {
 
+    // ✅ เพิ่มพารามิเตอร์ flipH, flipV
     public static void startBatchProcess(
             List<File> imageFiles,
             File outputDir,
             String detail,
             int colors,
             boolean removeBg,
+            boolean flipH,
+            boolean flipV,
             Consumer<Double> onProgressUpdate,
             Runnable onComplete) {
         // ใช้ Task เพื่อป้องกันไม่ให้ UI หลักค้าง
@@ -34,29 +37,27 @@ public class FileTaskHandler {
                 if (isParallel) {
                     // ประมวลผลแบบขนาน (Parallel)
                     System.out.println("🚀 Parallel mode working .....");
-                    // 1. สร้าง Thread Pool ขนาดเท่ากับจำนวน Core ของซีพียู
-                    ExecutorService executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+                    ExecutorService executor = Executors.newFixedThreadPool(
+                            Runtime.getRuntime().availableProcessors());
 
-                    // 2. กระจายงาน (Submit) ให้ Thread Pool ทำงานคู่ขนานกัน
                     for (File file : imageFiles) {
                         executor.submit(() -> {
-                        try {
-                            // เพิ่มบรรทัดนี้เพื่อเช็คว่ามันเริ่มรันหรือยัง
-                            System.out.println("⏳ Converting : " + file.getName());
+                            try {
+                                System.out.println("⏳ Converting : " + file.getName());
 
-                            ImageTracerEngine.convertAndSave(file, outputDir, detail, colors, removeBg);
+                                // ✅ ส่ง flipH, flipV ต่อ
+                                ImageTracerEngine.convertAndSave(
+                                        file, outputDir, detail, colors, removeBg, flipH, flipV);
 
-                            // เพิ่มบรรทัดนี้เพื่อเช็คว่าเซฟเสร็จไหม
-                            System.out.println("✅ Success saved: " + file.getName());
-
-                            updateProgressSafe(processedFiles.incrementAndGet(), totalFiles, onProgressUpdate);
-                        } catch (Exception e) {
-                            System.out.println("❌ Issues on files: " + file.getName());
-                            e.printStackTrace();
-                        }
+                                System.out.println("✅ Success saved: " + file.getName());
+                                updateProgressSafe(processedFiles.incrementAndGet(),
+                                        totalFiles, onProgressUpdate);
+                            } catch (Exception e) {
+                                System.out.println("❌ Issues on files: " + file.getName());
+                                e.printStackTrace();
+                            }
                         });
                     }
-                    // 3. สั่งปิดการรับงานใหม่ และรอให้งานที่กระจายไปเสร็จสิ้นทั้งหมด
                     executor.shutdown();
                     executor.awaitTermination(1, TimeUnit.HOURS);
 
@@ -65,9 +66,14 @@ public class FileTaskHandler {
                     for (File file : imageFiles) {
                         try {
                             System.out.println("⏳ Converting : " + file.getName());
-                            ImageTracerEngine.convertAndSave(file, outputDir, detail, colors, removeBg);
+
+                            // ✅ ส่ง flipH, flipV ต่อ
+                            ImageTracerEngine.convertAndSave(
+                                    file, outputDir, detail, colors, removeBg, flipH, flipV);
+
                             System.out.println("✅ Done : " + file.getName());
-                            updateProgressSafe(processedFiles.incrementAndGet(), totalFiles, onProgressUpdate);
+                            updateProgressSafe(processedFiles.incrementAndGet(),
+                                    totalFiles, onProgressUpdate);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -79,17 +85,13 @@ public class FileTaskHandler {
             @Override
             protected void succeeded() {
                 Platform.runLater(onComplete);
-            } // เมื่องานทั้งหมด 100% ให้แสดง Alert บน UI
+            }
         };
-        // เริ่มต้นให้ Task ทำงานใน Background Thread ทันที
         new Thread(exportTask).start();
     }
 
-    // เมธอดสำหรับอัปเดต Progress Bar บน UI
     private static void updateProgressSafe(int current, int total, Consumer<Double> onProgressUpdate) {
         double progress = (double) current / total;
         Platform.runLater(() -> onProgressUpdate.accept(progress));
     }
-
-
 }

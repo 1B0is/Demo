@@ -27,8 +27,9 @@ public class ImageTracerEngine {
         }
     }
 
-    // เมธอดสำหรับแปลงและเซฟเป็นไฟล์เวกเตอร์จริงๆ
-    public static void convertAndSave(File inputFile, File outputDir, String detail, int colors, boolean removeBg) throws Exception {
+    // ✅ เพิ่มพารามิเตอร์ flipH, flipV
+    public static void convertAndSave(File inputFile, File outputDir, String detail, int colors,
+                                      boolean removeBg, boolean flipH, boolean flipV) throws Exception {
         // 1. แปลงค่าพารามิเตอร์ที่รับมาให้อยู่ในรูปแบบ AppSettings
         AppSettings settings = new AppSettings();
 
@@ -41,8 +42,12 @@ public class ImageTracerEngine {
         if (colors > 0) {
             settings.setColorMode(AppSettings.ColorMode.CUSTOM);
             settings.setColorCount(colors);
-        } else { settings.setColorMode(AppSettings.ColorMode.UNLIMITED);}
+        } else {
+            settings.setColorMode(AppSettings.ColorMode.UNLIMITED);
+        }
         settings.setRemoveBackground(removeBg);
+        settings.setFlipHorizontal(flipH);   // ✅ เพิ่ม
+        settings.setFlipVertical(flipV);     // ✅ เพิ่ม
 
         // 2. ส่งภาพและการตั้งค่าไปให้ VectorEngine ประมวลผลเป็น SVG
         VectorEngine.TraceResult result = engine.trace(inputFile, settings);
@@ -52,7 +57,7 @@ public class ImageTracerEngine {
         File outputFile = new File(outputDir, outputFileName);
 
         try (FileWriter writer = new FileWriter(outputFile)) {
-            writer.write((result.svg()));
+            writer.write(result.svg());
         }
     }
 }

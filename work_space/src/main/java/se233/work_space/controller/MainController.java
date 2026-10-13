@@ -160,21 +160,16 @@ public class MainController {
         return label == null ? DetailLevel.MEDIUM : DetailLevel.valueOf(label.toUpperCase());
     }
 
-    private static AppSettings copyOf(AppSettings src) {
-        AppSettings c = new AppSettings();
-        c.setDetailLevel(src.getDetailLevel());
-        c.setColorMode(src.getColorMode());
-        c.setColorCount(src.getColorCount());
-        c.setRemoveBackground(src.isRemoveBackground());
-        return c;
-    }
+    // ✅ ลบเมธอด copyOf() ที่ลืม copy flip flags ออก
+    //    ใช้ item.getSettings().copy() แทน (ใน AppSettings.copy() คัดลอกครบทุก field รวม flip)
 
     // ---------- พรีวิว (ทำเบื้องหลัง ไม่ให้ UI ค้าง) ----------
     private void runPreview(boolean imageChanged) {
         if (session == null || session.isEmpty()) return;
 
         final ImageItem item = session.getCurrent();
-        final AppSettings snapshot = copyOf(item.getSettings());
+        // ✅ ใช้ AppSettings.copy() ที่คัดลอก flipH/flipV ครบ
+        final AppSettings snapshot = item.getSettings().copy();
         final long myVersion = ++previewVersion;
 
         progressBar.setVisible(true);
@@ -263,6 +258,8 @@ public class MainController {
             String detail = detailLevelCombo.getValue();
             int colors = colorCustomRadio.isSelected() ? customColorSpinner.getValue() : -1;
             boolean removeBg = removeBgCheckbox.isSelected();
+            boolean flipH = flipHButton.isSelected();   // ✅ เพิ่ม
+            boolean flipV = flipVButton.isSelected();   // ✅ เพิ่ม
 
             // แสดง Progress Bar เตรียมพร้อม
             progressBar.setVisible(true);
@@ -275,6 +272,8 @@ public class MainController {
                     detail,
                     colors,
                     removeBg,
+                    flipH,                          // ✅ ส่งเข้าไป
+                    flipV,                          // ✅
                     this::updateProgress,
                     this::showSuccessDialog
             );
