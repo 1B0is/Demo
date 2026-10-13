@@ -53,6 +53,16 @@
             <Label text="Advanced" style="-fx-font-weight: bold; -fx-font-size: 14; -fx-padding: 10 0 0 0;" />
             <CheckBox fx:id="removeBgCheckbox" text="Remove Background" />
 
+            <Label text="Transform" style="-fx-font-weight: bold; -fx-font-size: 14; -fx-padding: 10 0 0 0;" />
+            <HBox spacing="8">
+                <ToggleButton fx:id="flipHButton" text="Flip ↔" maxWidth="Infinity" HBox.hgrow="ALWAYS">
+                    <tooltip><Tooltip text="Flip left ↔ right"/></tooltip>
+                </ToggleButton>
+                <ToggleButton fx:id="flipVButton" text="Flip ↕" maxWidth="Infinity" HBox.hgrow="ALWAYS">
+                    <tooltip><Tooltip text="Flip top ↕ bottom"/></tooltip>
+                </ToggleButton>
+            </HBox>
+
             <!-- Progress Bar สำหรับ Parallel Processing[cite: 5] -->
             <ProgressBar fx:id="progressBar" progress="0.0" visible="false" maxWidth="Infinity" />
 

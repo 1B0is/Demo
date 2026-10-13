@@ -16,6 +16,8 @@ public class AppSettings {
     private ColorMode colorMode = ColorMode.CUSTOM;
     private int colorCount = DEFAULT_COLORS;
     private boolean removeBackground = true;
+    private boolean flipHorizontal = false;   // พลิกซ้าย-ขวา
+    private boolean flipVertical = false;     // พลิกบน-ล่าง
 
     public DetailLevel getDetailLevel() { return detailLevel;}
     public void setDetailLevel(DetailLevel d) { this.detailLevel = d; }
@@ -31,4 +33,22 @@ public class AppSettings {
 
     public boolean isRemoveBackground() { return removeBackground;}
     public void setRemoveBackground(boolean b) {this.removeBackground = b;}
+
+    public boolean isFlipHorizontal() { return flipHorizontal; }
+    public void setFlipHorizontal(boolean b) { this.flipHorizontal = b; }
+
+    public boolean isFlipVertical() { return flipVertical; }
+    public void setFlipVertical(boolean b) { this.flipVertical = b; }
+
+    // สำเนาค่าตั้ง (ใช้ทำ snapshot ก่อนส่งให้เธรดงาน)
+    public AppSettings copy() {
+        AppSettings c = new AppSettings();
+        c.detailLevel = detailLevel;
+        c.colorMode = colorMode;
+        c.colorCount = colorCount;
+        c.removeBackground = removeBackground;
+        c.flipHorizontal = flipHorizontal;
+        c.flipVertical = flipVertical;
+        return c;
+    }
 }

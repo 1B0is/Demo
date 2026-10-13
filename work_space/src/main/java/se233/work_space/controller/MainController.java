@@ -40,6 +40,8 @@ public class MainController {
     @FXML private Spinner<Integer> customColorSpinner;
     @FXML private CheckBox removeBgCheckbox;
     @FXML private ProgressBar progressBar;
+    @FXML private ToggleButton flipHButton;
+    @FXML private ToggleButton flipVButton;
 
     private ToggleGroup colorToggleGroup;
     private ZoomableImagePane originalPane;
@@ -81,6 +83,8 @@ public class MainController {
         colorToggleGroup.selectedToggleProperty().addListener((o, a, b) -> onControlsChanged());
         customColorSpinner.valueProperty().addListener((o, a, b) -> onControlsChanged());
         removeBgCheckbox.selectedProperty().addListener((o, a, b) -> onControlsChanged());
+        flipHButton.selectedProperty().addListener((o, a, b) -> onControlsChanged());
+        flipVButton.selectedProperty().addListener((o, a, b) -> onControlsChanged());
     }
 
     // ---------- รับภาพจากหน้า Drop Zone ----------
@@ -112,6 +116,8 @@ public class MainController {
         else colorUnlimitedRadio.setSelected(true);
         customColorSpinner.getValueFactory().setValue(s.getColorCount());
         removeBgCheckbox.setSelected(s.isRemoveBackground());
+        flipHButton.setSelected(s.isFlipHorizontal());
+        flipVButton.setSelected(s.isFlipVertical());
         syncing = false;
     }
 
@@ -140,6 +146,8 @@ public class MainController {
         Integer n = customColorSpinner.getValue();
         if (n != null) s.setColorCount(n);
         s.setRemoveBackground(removeBgCheckbox.isSelected());
+        s.setFlipHorizontal(flipHButton.isSelected());
+        s.setFlipVertical(flipVButton.isSelected());
         debounce.playFromStart();
     }
 

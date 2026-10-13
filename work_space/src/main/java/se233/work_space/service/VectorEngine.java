@@ -119,8 +119,10 @@ public class VectorEngine {
 
             BgInfo bg = s.isRemoveBackground() ? findBackground(ii) : null;
 
-            String svg = buildSvg(ii, opts, bg);
-            BufferedImage preview = (previewW > 0) ? render(ii, previewW, previewH, bg) : null;
+            // ส่ง flag พลิกเข้าไปใน buildSvg/render
+            boolean fh = s.isFlipHorizontal(), fv = s.isFlipVertical();
+            String svg = buildSvg(ii, opts, bg, fh, fv);
+            BufferedImage preview = (previewW > 0) ? render(ii, previewW, previewH, bg, fh, fv) : null;
             return new TraceResult(svg, preview);
         } catch (Exception e) {
             throw new CorruptedImageException("Failed to trace " + file.getName(), e);
@@ -228,7 +230,9 @@ public class VectorEngine {
                 + ((c[3] + 128) / 255.0) + "\" ";
     }
 
-    private static String buildSvg(ImageTracer.IndexedImage ii, HashMap<String, Float> opts, BgInfo bg) {
+    // เปลี่ยนหัวเมธอด buildSvg ให้รับ flipH, flipV
+    private static String buildSvg(ImageTracer.IndexedImage ii, HashMap<String, Float> opts, BgInfo bg,
+                                   boolean flipH, boolean flipV) {
         float scale = opts.get("scale");
         int w = (int) (ii.width * scale), h = (int) (ii.height * scale);
 
@@ -270,8 +274,24 @@ public class VectorEngine {
                 .append("\" viewBox=\"0 0 ").append(w).append(" ").append(h)
                 .append("\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\">");
         if (defs.length() > 0) svg.append("<defs>").append(defs).append("</defs>");
-        svg.append(body).append("</svg>");
+
+        // ครอบ body ด้วย transform พลิก (ถ้ามี)
+        String flip = flipTransform(w, h, flipH, flipV);
+        if (flip.isEmpty()) {
+            svg.append(body);
+        } else {
+            svg.append("<g transform=\"").append(flip).append("\">").append(body).append("</g>");
+        }
+        svg.append("</svg>");
         return svg.toString();
+    }
+
+    // เมธอดใหม่สำหรับสร้าง transform พลิก
+    private static String flipTransform(int w, int h, boolean flipH, boolean flipV) {
+        if (flipH && flipV) return "translate(" + w + "," + h + ") scale(-1,-1)";
+        if (flipH) return "translate(" + w + ",0) scale(-1,1)";
+        if (flipV) return "translate(0," + h + ") scale(1,-1)";
+        return "";
     }
 
     // ---------- สร้าง palette แบบไม่สุ่ม ----------
@@ -381,13 +401,17 @@ public class VectorEngine {
     }
 
     // ---------- วาดพรีวิวจากข้อมูล trace ----------
-    private static BufferedImage render(ImageTracer.IndexedImage ii, int w, int h, BgInfo bg) {
+    // เปลี่ยนหัวเมธอด render ให้รับ flipH, flipV
+    private static BufferedImage render(ImageTracer.IndexedImage ii, int w, int h, BgInfo bg,
+                                        boolean flipH, boolean flipV) {
         BufferedImage img = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = img.createGraphics();
         try {
             g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
             double sx = (double) w / ii.width, sy = (double) h / ii.height;
             g.scale(sx, sy);
+            if (flipH) { g.translate(ii.width, 0); g.scale(-1, 1); }    // พลิกซ้าย-ขวา
+            if (flipV) { g.translate(0, ii.height); g.scale(1, -1); }   // พลิกบน-ล่าง
             g.setStroke(new BasicStroke((float) (1.0 / sx)));   // เส้นขอบ ~1 พิกเซล กันรอยต่อระหว่างสี
 
             for (int[] e : zorder(ii).values()) {
